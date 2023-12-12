@@ -53,14 +53,6 @@ namespace MIDI_Splitter_Lite
             if (!string.IsNullOrEmpty(lastOpenedFilePath) && File.Exists(lastOpenedFilePath))
             {
                 LoadMIDIFile(lastOpenedFilePath);
-                if (Settings.Default.ListTitles != null && Settings.Default.ListTitles.Count == MIDIListView.Items.Count)
-                {
-                    for (int i = 0; i < MIDIListView.Items.Count; i++)
-                    {
-                        MIDIListView.Items[i].SubItems[1].Text = Settings.Default.ListTitles[i];
-                    }
-                    UpdateListViewColors();
-                }
             }
 
             SetupListViewContextMenu();
@@ -138,6 +130,8 @@ namespace MIDI_Splitter_Lite
         {
             using (FileStream midiReader = new FileStream(filePath, FileMode.Open))
             {
+                var midiParser = new MidiParser.MidiFile(midiReader);
+
                 midiReader.Seek(4, SeekOrigin.Begin);
 
                 byte[] headerSize = new byte[4];
@@ -177,13 +171,7 @@ namespace MIDI_Splitter_Lite
                     {
                         for (ushort i = 0; i < totalTracksShort; i++)
                         {
-                            midiReader.Seek(4, SeekOrigin.Current);
-
-                            byte[] trackSize = new byte[4];
-                            midiReader.Read(trackSize, 0, trackSize.Length);
-                            if (BitConverter.IsLittleEndian)
-                                Array.Reverse(trackSize);
-                            int trackSizeInt = BitConverter.ToInt32(trackSize, 0);
+                            int trackSizeInt = FindTrackSize(midiReader);
 
                             List<byte> tempArray = new List<byte>();
                             if (trackSizeInt <= 4096)
@@ -231,17 +219,49 @@ namespace MIDI_Splitter_Lite
                         }
                         UpdateListViewColors();
                     }
+                    else if (Settings.Default.ReadTrackInstruments)
+                    {
+                        var channelInstrumentMap = new Dictionary<int, string>(); // Dictionary to store the instrument for each channel
+
+                        for (int i = 0; i < midiParser.TracksCount; i++)
+                        {
+                            int trackSizeInt = FindTrackSize(midiReader);
+                            midiReader.Seek(trackSizeInt, SeekOrigin.Current);
+
+                            var trackEvents = midiParser.Tracks[i].MidiEvents;
+                            string instrumentName = "Unknown";
+
+                            foreach (var midiEvent in trackEvents)
+                            {
+                                if (midiEvent.MidiEventType == MidiParser.MidiEventType.ProgramChange)
+                                {
+                                    int channel = midiEvent.Arg1 - 1;
+                                    if (channelInstrumentMap.ContainsKey(channel))
+                                    {
+                                        instrumentName = channelInstrumentMap[channel];
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        instrumentName = GetInstrumentName(midiEvent.Arg2);
+                                        channelInstrumentMap[channel] = instrumentName;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            string trackName = instrumentName;
+                            string[] listViewRow = { (i + 1).ToString(), trackName, trackSizeInt.ToString() };
+                            ListViewItem listViewItem = new ListViewItem(listViewRow);
+                            MIDIListView.Items.Add(listViewItem);
+                        }
+                        UpdateListViewColors();
+                    }
                     else
                     {
                         for (ushort i = 0; i < totalTracksShort; i++)
                         {
-                            midiReader.Seek(4, SeekOrigin.Current);
-
-                            byte[] trackSize = new byte[4];
-                            midiReader.Read(trackSize, 0, trackSize.Length);
-                            if (BitConverter.IsLittleEndian)
-                                Array.Reverse(trackSize);
-                            int trackSizeInt = BitConverter.ToInt32(trackSize, 0);
+                            int trackSizeInt = FindTrackSize(midiReader);
                             midiReader.Seek(trackSizeInt, SeekOrigin.Current);
 
                             string trackNameStr = "Track " + (i + 1).ToString();
@@ -254,6 +274,64 @@ namespace MIDI_Splitter_Lite
                     }
                 }
             }
+        }
+
+        private int FindTrackSize(FileStream midiReader)
+        {
+            midiReader.Seek(4, SeekOrigin.Current);
+
+            byte[] trackSize = new byte[4];
+            midiReader.Read(trackSize, 0, trackSize.Length);
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(trackSize);
+            int trackSizeInt = BitConverter.ToInt32(trackSize, 0);
+            return trackSizeInt;
+        }
+
+        private string GetInstrumentName(int programNumber)
+        {
+            string[] instruments = new string[]
+            {
+                "Acoustic Grand Piano", "Bright Acoustic Piano", "Electric Grand Piano", "Honky-Tonk Piano",
+                "Rhodes Piano", "Chorused Piano", "Harpsichord", "Clavinet",
+                "Celesta", "Glockenspiel", "Music Box", "Vibraphone",
+                "Marimba", "Xylophone", "Tubular Bells", "Dulcimer",
+                "Hammond Organ", "Percussive Organ", "Rock Organ", "Church Organ",
+                "Reed Organ", "Accordion", "Harmonica", "Tango Accordion",
+                "Acoustic Guitar - Nylon", "Acoustic Guitar - Steel", "Electric Guitar - Jazz", "Electric Guitar - Clean",
+                "Electric Guitar - Muted", "Overdriven Guitar", "Distortion Guitar", "Guitar Harmonics",
+                "Acoustic Bass", "Electric Bass - Finger", "Electric Bass - Pick", "Fretless Bass",
+                "Slap Bass 1", "Slap Bass 2", "Synth Bass 1", "Synth Bass 2",
+                "Violin", "Viola", "Cello", "Contrabass",
+                "Tremolo Strings", "Pizzicato Strings", "Orchestral Harp", "Timpani",
+                "String Ensemble 1", "String Ensemble 2", "Synth. Strings 1", "Synth. Strings 2",
+                "Choir Aahs", "Voice Oohs", "Synth Voice", "Orchestra Hit",
+                "Trumpet", "Trombone", "Tuba", "Muted Trumpet",
+                "French Horn", "Brass Section", "Synth. Brass 1", "Synth. Brass 2",
+                "Soprano Sax", "Alto Sax", "Tenor Sax", "Baritone Sax",
+                "Oboe", "English Horn", "Bassoon", "Clarinet",
+                "Piccolo", "Flute", "Recorder", "Pan Flute",
+                "Bottle Blow", "Shakuhachi", "Whistle", "Ocarina",
+                "Synth Lead 1 - Square", "Synth Lead 2 - Sawtooth", "Synth Lead 3 - Calliope", "Synth Lead 4 - Chiff",
+                "Synth Lead 5 - Charang", "Synth Lead 6 - Voice", "Synth Lead 7 - Fifths", "Synth Lead 8 - Brass + Lead",
+                "Synth Pad 1 - New Age", "Synth Pad 2 - Warm", "Synth Pad 3 - Polysynth", "Synth Pad 4 - Choir",
+                "Synth Pad 5 - Bowed", "Synth Pad 6 - Metallic", "Synth Pad 7 - Halo", "Synth Pad 8 - Sweep",
+                "FX 1 - Rain", "FX 2 - Soundtrack", "FX 3 - Crystal", "FX 4 - Atmosphere",
+                "FX 5 - Brightness", "FX 6 - Goblins", "FX 7 - Echoes", "FX 8 - Sci-Fi",
+                "Sitar", "Banjo", "Shamisen", "Koto",
+                "Kalimba", "Bagpipe", "Fiddle", "Shanai",
+                "Tinkle Bell", "Agogo", "Steel Drums", "Woodblock",
+                "Taiko Drum", "Melodic Tom", "Synth Drum", "Reverse Cymbal",
+                "Guitar Fret Noise", "Breath Noise", "Seashore", "Bird Tweet",
+                "Telephone Ring", "Helicopter", "Applause", "Gunshot"
+            };
+
+            if (programNumber >= 0 && programNumber < instruments.Length)
+            {
+                return instruments[programNumber];
+            }
+
+            return "Unknown"; // Default case
         }
 
 
@@ -953,17 +1031,10 @@ namespace MIDI_Splitter_Lite
             {
                 Settings.Default.LastOpenedFilePath = MIDIPathBox.Text;
                 Settings.Default.ExportPath = ExportPathBox.Text;
-
-                Settings.Default.ListTitles = new StringCollection();
-                foreach (ListViewItem item in MIDIListView.Items)
-                {
-                    Settings.Default.ListTitles.Add(item.SubItems[1].Text);
-                }
                 Settings.Default.Save();
             } else
             {
                 Settings.Default.LastOpenedFilePath = null;
-                Settings.Default.ListTitles = null;
                 Settings.Default.ExportPath = ExportPathBox.Text;
                 Settings.Default.Save();
             }

@@ -239,12 +239,13 @@ namespace MIDI_Splitter_Lite.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection ListTitles {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ReadTrackInstruments {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["ListTitles"]));
+                return ((bool)(this["ReadTrackInstruments"]));
             }
             set {
-                this["ListTitles"] = value;
+                this["ReadTrackInstruments"] = value;
             }
         }
     }
