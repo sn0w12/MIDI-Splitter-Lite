@@ -164,13 +164,13 @@
                             {
                                 track.MidiEvents.Add(
                                     new MidiEvent
-                                        {
-                                            Time = time,
-                                            Type = status,
-                                            Arg1 = metaEventType,
-                                            Arg2 = data1,
-                                            Arg3 = data2
-                                        });
+                                    {
+                                        Time = time,
+                                        Type = status,
+                                        Arg1 = metaEventType,
+                                        Arg2 = data1,
+                                        Arg3 = data2
+                                    });
                             }
                         }
                     }

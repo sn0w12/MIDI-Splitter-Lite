@@ -1,10 +1,9 @@
-﻿using System;
+﻿using MIDI_Splitter_Lite.Properties;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using MIDI_Splitter_Lite.Properties;
 
 namespace MIDI_Splitter_Lite
 {

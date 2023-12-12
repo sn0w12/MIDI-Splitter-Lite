@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Taskbar;
+using MIDI_Splitter_Lite.Properties;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using MIDI_Splitter_Lite.Properties;
-using Microsoft.WindowsAPICodePack.Taskbar;
-using System.Drawing;
-using System.Collections.Specialized;
 
 namespace MIDI_Splitter_Lite
 {
@@ -260,7 +260,7 @@ namespace MIDI_Splitter_Lite
 
                             if (Settings.Default.RemoveTracks)
                             {
-                                if(trackSizeInt > trackSizeMax)
+                                if (trackSizeInt > trackSizeMax)
                                 {
                                     MIDIListView.Items.Add(listViewItem);
                                 }
@@ -516,12 +516,9 @@ namespace MIDI_Splitter_Lite
                         lastChar = '_';
                     }
                 }
-                // If it's the last char and it's invalid, it gets deleted (by not appending it)
             }
-
             return sanitizedFileName.ToString();
         }
-
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -584,7 +581,7 @@ namespace MIDI_Splitter_Lite
                 ExportBrowserDialog.SelectedPath = ExportPathBox.Text;
             }
 
-            if(ExportBrowserDialog.ShowDialog() == DialogResult.OK)
+            if (ExportBrowserDialog.ShowDialog() == DialogResult.OK)
                 ExportPathBox.Text = ExportBrowserDialog.SelectedPath;
         }
 
@@ -898,7 +895,7 @@ namespace MIDI_Splitter_Lite
             var inputFileArray = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             string midiFile = inputFileArray[0];
 
-            LoadMIDIFile(midiFile);       
+            LoadMIDIFile(midiFile);
         }
 
         private Color GetRowColorBasedOnInstrument(string instrumentName)
