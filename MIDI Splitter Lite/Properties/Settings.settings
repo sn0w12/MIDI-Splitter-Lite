@@ -59,8 +59,8 @@
     <Setting Name="LastOpenedFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ListTitles" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="ReadTrackInstruments" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>
