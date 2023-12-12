@@ -121,9 +121,9 @@
             // RemoveTracksBox
             // 
             this.RemoveTracksBox.AutoSize = true;
-            this.RemoveTracksBox.Location = new System.Drawing.Point(12, 119);
+            this.RemoveTracksBox.Location = new System.Drawing.Point(12, 104);
             this.RemoveTracksBox.Name = "RemoveTracksBox";
-            this.RemoveTracksBox.Size = new System.Drawing.Size(15, 14);
+            this.RemoveTracksBox.Size = new System.Drawing.Size(129, 17);
             this.RemoveTracksBox.TabIndex = 25;
             this.toolTip.SetToolTip(this.RemoveTracksBox, "Removes tracks that are under x  in size, default is 105.");
             this.RemoveTracksBox.UseVisualStyleBackColor = true;
@@ -320,16 +320,16 @@
             // MinBytesTextBox
             // 
             this.MinBytesTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MinBytesTextBox.Location = new System.Drawing.Point(33, 117);
+            this.MinBytesTextBox.Location = new System.Drawing.Point(9, 140);
             this.MinBytesTextBox.Name = "MinBytesTextBox";
-            this.MinBytesTextBox.Size = new System.Drawing.Size(76, 20);
+            this.MinBytesTextBox.Size = new System.Drawing.Size(164, 20);
             this.MinBytesTextBox.TabIndex = 26;
             this.MinBytesTextBox.Text = "105";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 101);
+            this.label8.Location = new System.Drawing.Point(9, 124);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(110, 13);
             this.label8.TabIndex = 27;
