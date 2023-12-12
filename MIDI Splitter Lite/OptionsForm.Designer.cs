@@ -96,10 +96,26 @@
             this.FilePrefixBox.Size = new System.Drawing.Size(132, 17);
             this.FilePrefixBox.TabIndex = 2;
             this.FilePrefixBox.Text = "Use file name as prefix";
-            this.toolTip.SetToolTip(this.FilePrefixBox, "Reads the name of each track from the MIDI file and displays it in the list.\r\nIf " +
-        "multiple names exists for a given track, the latest one will be shown.");
+            this.toolTip.SetToolTip(this.FilePrefixBox, "Uses the name of the original midi file as a prefix for the split tracks.");
             this.FilePrefixBox.UseVisualStyleBackColor = true;
             // 
+<<<<<<< Updated upstream
+=======
+            // ReadTrackInstrumentBox
+            // 
+            this.ReadTrackInstrumentBox.AutoSize = true;
+            this.ReadTrackInstrumentBox.Location = new System.Drawing.Point(12, 58);
+            this.ReadTrackInstrumentBox.Name = "ReadTrackInstrumentBox";
+            this.ReadTrackInstrumentBox.Size = new System.Drawing.Size(135, 17);
+            this.ReadTrackInstrumentBox.TabIndex = 24;
+            this.ReadTrackInstrumentBox.Text = "Read track instruments";
+            this.toolTip.SetToolTip(this.ReadTrackInstrumentBox, "Reads the instrument of each track from the MIDI file and displays it in the list" +
+        ".\r\nIf multiple instrument exists for a given track, the first one will be shown." +
+        "");
+            this.ReadTrackInstrumentBox.UseVisualStyleBackColor = true;
+            this.ReadTrackInstrumentBox.CheckedChanged += new System.EventHandler(this.ReadTrackInstrumentBox_CheckedChanged);
+            // 
+>>>>>>> Stashed changes
             // colorTextBox4
             // 
             this.colorTextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -293,7 +309,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+<<<<<<< Updated upstream
             this.ClientSize = new System.Drawing.Size(192, 360);
+=======
+            this.ClientSize = new System.Drawing.Size(187, 379);
+            this.Controls.Add(this.ReadTrackInstrumentBox);
+>>>>>>> Stashed changes
             this.Controls.Add(this.colorPicker7);
             this.Controls.Add(this.colorPicker6);
             this.Controls.Add(this.colorPicker5);
