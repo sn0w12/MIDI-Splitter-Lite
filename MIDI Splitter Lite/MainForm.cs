@@ -956,5 +956,10 @@ namespace MIDI_Splitter_Lite
             Settings.Default.ExportPath = ExportPathBox.Text;
             Settings.Default.Save();
         }
+
+        private void ReloadMidiButton_Click(object sender, EventArgs e)
+        {
+            RequestRestart();
+        }
     }
 }
