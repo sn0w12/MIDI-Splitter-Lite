@@ -132,7 +132,7 @@ namespace MIDI_Splitter_Lite
             {
                 var midiParser = new MidiParser.MidiFile(midiReader);
 
-                int trackSizeMax = 105;
+                int trackSizeMax = Settings.Default.MinBytes;
 
                 midiReader.Seek(4, SeekOrigin.Begin);
 
@@ -215,7 +215,7 @@ namespace MIDI_Splitter_Lite
 
                             trackNameStr = SanitizeFileName(trackNameStr);
 
-                            string[] newRow = { (i + 1).ToString(), trackNameStr, trackSizeInt.ToString() };
+                            string[] newRow = { (i + 1).ToString(), trackNameStr, BytesToReadableFormat(trackSizeInt) };
                             ListViewItem newItem = new ListViewItem(newRow);
                             if (Settings.Default.RemoveTracks)
                             {
@@ -263,7 +263,7 @@ namespace MIDI_Splitter_Lite
                             }
 
                             string trackName = instrumentName;
-                            string[] listViewRow = { (i + 1).ToString(), trackName, trackSizeInt.ToString() };
+                            string[] listViewRow = { (i + 1).ToString(), trackName, BytesToReadableFormat(trackSizeInt) };
                             ListViewItem listViewItem = new ListViewItem(listViewRow);
 
                             if (Settings.Default.RemoveTracks)
@@ -289,7 +289,7 @@ namespace MIDI_Splitter_Lite
 
                             string trackNameStr = "Track " + (i + 1).ToString();
 
-                            string[] newRow = { (i + 1).ToString(), trackNameStr, trackSizeInt.ToString() };
+                            string[] newRow = { (i + 1).ToString(), trackNameStr, BytesToReadableFormat(trackSizeInt) };
                             ListViewItem newItem = new ListViewItem(newRow);
                             if (Settings.Default.RemoveTracks)
                             {
@@ -320,6 +320,22 @@ namespace MIDI_Splitter_Lite
             int trackSizeInt = BitConverter.ToInt32(trackSize, 0);
             return trackSizeInt;
         }
+
+        private string BytesToReadableFormat(int bytes)
+        {
+            double size = bytes;
+            string[] units = { "B", "KB", "MB", "GB", "TB" }; // You can extend this array with more units if needed
+            int unitIndex = 0;
+
+            while (size >= 1024 && unitIndex < units.Length - 1)
+            {
+                size /= 1024;
+                unitIndex++;
+            }
+
+            return $"{size:0.##} {units[unitIndex]}";
+        }
+
 
         private string GetInstrumentName(int programNumber)
         {

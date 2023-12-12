@@ -22,6 +22,7 @@ namespace MIDI_Splitter_Lite
             ReadTrackInstrumentBox.Checked = Settings.Default.ReadTrackInstruments;
             FilePrefixBox.Checked = Settings.Default.FilePrefixBox;
             RemoveTracksBox.Checked = Settings.Default.RemoveTracks;
+            MinBytesTextBox.Text = Settings.Default.MinBytes.ToString();
 
             colorTextBox1.BackColor = Settings.Default.Color1;
             colorTextBox2.BackColor = Settings.Default.Color2;
@@ -76,6 +77,7 @@ namespace MIDI_Splitter_Lite
             Settings.Default.ReadTrackInstruments = ReadTrackInstrumentBox.Checked;
             Settings.Default.FilePrefixBox = FilePrefixBox.Checked;
             Settings.Default.RemoveTracks = RemoveTracksBox.Checked;
+            Settings.Default.MinBytes = ConvertTextBoxTextToInt(MinBytesTextBox);
 
             Settings.Default.Color1 = colorTextBox1.BackColor;
             Settings.Default.Color2 = colorTextBox2.BackColor;
@@ -157,5 +159,20 @@ namespace MIDI_Splitter_Lite
             if (ReadTrackNamesBox.Checked && ReadTrackInstrumentBox.Checked)
                 ReadTrackNamesBox.CheckState = CheckState.Unchecked;
         }
+
+        private int ConvertTextBoxTextToInt(TextBox maxBytesTextBox)
+        {
+            int result;
+            if (int.TryParse(maxBytesTextBox.Text, out result))
+            {
+                return result;
+            }
+            else
+            {
+                maxBytesTextBox.Text = "";
+                return 105;
+            }
+        }
+
     }
 }

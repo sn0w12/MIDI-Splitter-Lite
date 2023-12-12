@@ -260,5 +260,17 @@ namespace MIDI_Splitter_Lite.Properties {
                 this["RemoveTracks"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("105")]
+        public int MinBytes {
+            get {
+                return ((int)(this["MinBytes"]));
+            }
+            set {
+                this["MinBytes"] = value;
+            }
+        }
     }
 }
