@@ -892,6 +892,9 @@ namespace MIDI_Splitter_Lite
 
             using (FileStream midiReader = new FileStream(midiFile, FileMode.Open))
             {
+                var midiParser = new MidiParser.MidiFile(midiReader);
+                int trackSizeMax = 105;
+
                 midiReader.Seek(4, SeekOrigin.Begin);
 
                 byte[] headerSize = new byte[4];
@@ -931,13 +934,7 @@ namespace MIDI_Splitter_Lite
                     {
                         for (ushort i = 0; i < totalTracksShort; i++)
                         {
-                            midiReader.Seek(4, SeekOrigin.Current);
-
-                            byte[] trackSize = new byte[4];
-                            midiReader.Read(trackSize, 0, trackSize.Length);
-                            if (BitConverter.IsLittleEndian)
-                                Array.Reverse(trackSize);
-                            int trackSizeInt = BitConverter.ToInt32(trackSize, 0);
+                            int trackSizeInt = FindTrackSize(midiReader);
 
                             List<byte> tempArray = new List<byte>();
                             if (trackSizeInt <= 4096)
@@ -977,9 +974,70 @@ namespace MIDI_Splitter_Lite
                                 trackNameStr = "Track " + (i + 1).ToString();
                             }
 
+                            trackNameStr = SanitizeFileName(trackNameStr);
+
                             string[] newRow = { (i + 1).ToString(), trackNameStr, trackSizeInt.ToString() };
                             ListViewItem newItem = new ListViewItem(newRow);
-                            MIDIListView.Items.Add(newItem);
+                            if (Settings.Default.RemoveTracks)
+                            {
+                                if (trackSizeInt > trackSizeMax)
+                                {
+                                    MIDIListView.Items.Add(newItem);
+                                }
+                            }
+                            else
+                            {
+                                MIDIListView.Items.Add(newItem);
+                            }
+                        }
+                        UpdateListViewColors();
+                    }
+                    else if (Settings.Default.ReadTrackInstruments)
+                    {
+                        var channelInstrumentMap = new Dictionary<int, string>(); // Dictionary to store the instrument for each channel
+
+                        for (int i = 0; i < midiParser.TracksCount; i++)
+                        {
+                            int trackSizeInt = FindTrackSize(midiReader);
+                            midiReader.Seek(trackSizeInt, SeekOrigin.Current);
+
+                            var trackEvents = midiParser.Tracks[i].MidiEvents;
+                            string instrumentName = "Unknown";
+
+                            foreach (var midiEvent in trackEvents)
+                            {
+                                if (midiEvent.MidiEventType == MidiParser.MidiEventType.ProgramChange)
+                                {
+                                    int channel = midiEvent.Arg1 - 1;
+                                    if (channelInstrumentMap.ContainsKey(channel))
+                                    {
+                                        instrumentName = channelInstrumentMap[channel];
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        instrumentName = GetInstrumentName(midiEvent.Arg2);
+                                        channelInstrumentMap[channel] = instrumentName;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            string trackName = instrumentName;
+                            string[] listViewRow = { (i + 1).ToString(), trackName, trackSizeInt.ToString() };
+                            ListViewItem listViewItem = new ListViewItem(listViewRow);
+
+                            if (Settings.Default.RemoveTracks)
+                            {
+                                if (trackSizeInt > trackSizeMax)
+                                {
+                                    MIDIListView.Items.Add(listViewItem);
+                                }
+                            }
+                            else
+                            {
+                                MIDIListView.Items.Add(listViewItem);
+                            }
                         }
                         UpdateListViewColors();
                     }
@@ -987,20 +1045,24 @@ namespace MIDI_Splitter_Lite
                     {
                         for (ushort i = 0; i < totalTracksShort; i++)
                         {
-                            midiReader.Seek(4, SeekOrigin.Current);
-
-                            byte[] trackSize = new byte[4];
-                            midiReader.Read(trackSize, 0, trackSize.Length);
-                            if (BitConverter.IsLittleEndian)
-                                Array.Reverse(trackSize);
-                            int trackSizeInt = BitConverter.ToInt32(trackSize, 0);
+                            int trackSizeInt = FindTrackSize(midiReader);
                             midiReader.Seek(trackSizeInt, SeekOrigin.Current);
 
                             string trackNameStr = "Track " + (i + 1).ToString();
 
                             string[] newRow = { (i + 1).ToString(), trackNameStr, trackSizeInt.ToString() };
                             ListViewItem newItem = new ListViewItem(newRow);
-                            MIDIListView.Items.Add(newItem);
+                            if (Settings.Default.RemoveTracks)
+                            {
+                                if (trackSizeInt > trackSizeMax)
+                                {
+                                    MIDIListView.Items.Add(newItem);
+                                }
+                            }
+                            else
+                            {
+                                MIDIListView.Items.Add(newItem);
+                            }
                         }
                         UpdateListViewColors();
                     }
