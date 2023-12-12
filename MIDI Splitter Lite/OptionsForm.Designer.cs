@@ -310,9 +310,9 @@
             this.RemoveTracksBox.AutoSize = true;
             this.RemoveTracksBox.Location = new System.Drawing.Point(12, 104);
             this.RemoveTracksBox.Name = "RemoveTracksBox";
-            this.RemoveTracksBox.Size = new System.Drawing.Size(170, 17);
+            this.RemoveTracksBox.Size = new System.Drawing.Size(129, 17);
             this.RemoveTracksBox.TabIndex = 25;
-            this.RemoveTracksBox.Text = "Remove tracks under 105 size";
+            this.RemoveTracksBox.Text = "Remove empty tracks";
             this.toolTip.SetToolTip(this.RemoveTracksBox, "Removes tracks that are under 105 in size.");
             this.RemoveTracksBox.UseVisualStyleBackColor = true;
             // 
