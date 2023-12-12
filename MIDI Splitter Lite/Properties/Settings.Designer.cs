@@ -248,5 +248,17 @@ namespace MIDI_Splitter_Lite.Properties {
                 this["ReadTrackInstruments"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RemoveTracks {
+            get {
+                return ((bool)(this["RemoveTracks"]));
+            }
+            set {
+                this["RemoveTracks"] = value;
+            }
+        }
     }
 }

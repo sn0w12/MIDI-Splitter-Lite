@@ -132,6 +132,8 @@ namespace MIDI_Splitter_Lite
             {
                 var midiParser = new MidiParser.MidiFile(midiReader);
 
+                int trackSizeMax = 105;
+
                 midiReader.Seek(4, SeekOrigin.Begin);
 
                 byte[] headerSize = new byte[4];
@@ -215,7 +217,17 @@ namespace MIDI_Splitter_Lite
 
                             string[] newRow = { (i + 1).ToString(), trackNameStr, trackSizeInt.ToString() };
                             ListViewItem newItem = new ListViewItem(newRow);
-                            MIDIListView.Items.Add(newItem);
+                            if (Settings.Default.RemoveTracks)
+                            {
+                                if (trackSizeInt > trackSizeMax)
+                                {
+                                    MIDIListView.Items.Add(newItem);
+                                }
+                            }
+                            else
+                            {
+                                MIDIListView.Items.Add(newItem);
+                            }
                         }
                         UpdateListViewColors();
                     }
@@ -253,7 +265,18 @@ namespace MIDI_Splitter_Lite
                             string trackName = instrumentName;
                             string[] listViewRow = { (i + 1).ToString(), trackName, trackSizeInt.ToString() };
                             ListViewItem listViewItem = new ListViewItem(listViewRow);
-                            MIDIListView.Items.Add(listViewItem);
+
+                            if (Settings.Default.RemoveTracks)
+                            {
+                                if(trackSizeInt > trackSizeMax)
+                                {
+                                    MIDIListView.Items.Add(listViewItem);
+                                }
+                            }
+                            else
+                            {
+                                MIDIListView.Items.Add(listViewItem);
+                            }
                         }
                         UpdateListViewColors();
                     }
@@ -268,7 +291,17 @@ namespace MIDI_Splitter_Lite
 
                             string[] newRow = { (i + 1).ToString(), trackNameStr, trackSizeInt.ToString() };
                             ListViewItem newItem = new ListViewItem(newRow);
-                            MIDIListView.Items.Add(newItem);
+                            if (Settings.Default.RemoveTracks)
+                            {
+                                if (trackSizeInt > trackSizeMax)
+                                {
+                                    MIDIListView.Items.Add(newItem);
+                                }
+                            }
+                            else
+                            {
+                                MIDIListView.Items.Add(newItem);
+                            }
                         }
                         UpdateListViewColors();
                     }
@@ -1030,14 +1063,12 @@ namespace MIDI_Splitter_Lite
             if (isRestarting)
             {
                 Settings.Default.LastOpenedFilePath = MIDIPathBox.Text;
-                Settings.Default.ExportPath = ExportPathBox.Text;
-                Settings.Default.Save();
             } else
             {
                 Settings.Default.LastOpenedFilePath = null;
-                Settings.Default.ExportPath = ExportPathBox.Text;
-                Settings.Default.Save();
             }
+            Settings.Default.ExportPath = ExportPathBox.Text;
+            Settings.Default.Save();
         }
     }
 }

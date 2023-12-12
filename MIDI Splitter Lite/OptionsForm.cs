@@ -21,6 +21,7 @@ namespace MIDI_Splitter_Lite
             ReadTrackNamesBox.Checked = Settings.Default.ReadTrackNames;
             ReadTrackInstrumentBox.Checked = Settings.Default.ReadTrackInstruments;
             FilePrefixBox.Checked = Settings.Default.FilePrefixBox;
+            RemoveTracksBox.Checked = Settings.Default.RemoveTracks;
 
             colorTextBox1.BackColor = Settings.Default.Color1;
             colorTextBox2.BackColor = Settings.Default.Color2;
@@ -74,6 +75,7 @@ namespace MIDI_Splitter_Lite
             Settings.Default.ReadTrackNames = ReadTrackNamesBox.Checked;
             Settings.Default.ReadTrackInstruments = ReadTrackInstrumentBox.Checked;
             Settings.Default.FilePrefixBox = FilePrefixBox.Checked;
+            Settings.Default.RemoveTracks = RemoveTracksBox.Checked;
 
             Settings.Default.Color1 = colorTextBox1.BackColor;
             Settings.Default.Color2 = colorTextBox2.BackColor;
