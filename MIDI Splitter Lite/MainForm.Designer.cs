@@ -34,6 +34,8 @@
             this.splitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.abortSplittingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.ReloadMidiButton = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,8 +55,6 @@
             this.OpenMIDIDialog = new System.Windows.Forms.OpenFileDialog();
             this.ExportBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.ReloadMidiButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,32 +89,44 @@
             // splitToolStripMenuItem
             // 
             this.splitToolStripMenuItem.Name = "splitToolStripMenuItem";
-            this.splitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.splitToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.splitToolStripMenuItem.Text = "Split track(s)";
             this.splitToolStripMenuItem.Click += new System.EventHandler(this.splitToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(147, 6);
             // 
             // abortSplittingToolStripMenuItem
             // 
             this.abortSplittingToolStripMenuItem.Enabled = false;
             this.abortSplittingToolStripMenuItem.Name = "abortSplittingToolStripMenuItem";
-            this.abortSplittingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.abortSplittingToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.abortSplittingToolStripMenuItem.Text = "Abort splitting";
             this.abortSplittingToolStripMenuItem.Click += new System.EventHandler(this.abortSplittingToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 6);
+            // 
+            // ReloadMidiButton
+            // 
+            this.ReloadMidiButton.Name = "ReloadMidiButton";
+            this.ReloadMidiButton.Size = new System.Drawing.Size(150, 22);
+            this.ReloadMidiButton.Text = "Reload Midi";
+            this.ReloadMidiButton.Click += new System.EventHandler(this.ReloadMidiButton_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(147, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -247,18 +259,6 @@
             this.backgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker_ProgressChanged);
             this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
             // 
-            // ReloadMidiButton
-            // 
-            this.ReloadMidiButton.Name = "ReloadMidiButton";
-            this.ReloadMidiButton.Size = new System.Drawing.Size(180, 22);
-            this.ReloadMidiButton.Text = "Reload Midi";
-            this.ReloadMidiButton.Click += new System.EventHandler(this.ReloadMidiButton_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
-            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -268,16 +268,14 @@
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.ExportBTN);
             this.Controls.Add(this.BrowseBTN);
-            this.Controls.Add(this.MIDIListView);
             this.Controls.Add(this.ExportPathBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.MIDIPathBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Controls.Add(this.MIDIListView);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
-            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MIDI Splitter Lite";
@@ -285,6 +283,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);

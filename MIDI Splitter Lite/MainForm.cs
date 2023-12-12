@@ -18,6 +18,16 @@ namespace MIDI_Splitter_Lite
         List<ushort> trackNumberList = new List<ushort>();
         List<string> trackNamesList = new List<string>();
 
+        private Size formOriginalSize;
+        private Rectangle recLab1;
+        private Rectangle recLab2;
+        private Rectangle recBut1;
+        private Rectangle recBut2;
+        private Rectangle recTxt1;
+        private Rectangle recTxt2;
+        private Rectangle recLis1;
+        private Rectangle recBar1;
+
         private ContextMenuStrip listContextMenu;
 
         private readonly string[] instruments1 = new string[Settings.Default.ColorText1?.Count ?? 0];
@@ -35,6 +45,19 @@ namespace MIDI_Splitter_Lite
         {
             InitializeComponent();
 
+            this.Resize += MainForm_Resize;
+            formOriginalSize = this.Size;
+            recLab1 = new Rectangle(label1.Location, label1.Size);
+            recLab2 = new Rectangle(label2.Location, label2.Size);
+            recBut1 = new Rectangle(BrowseBTN.Location, BrowseBTN.Size);
+            recBut2 = new Rectangle(ExportBTN.Location, ExportBTN.Size);
+            recTxt1 = new Rectangle(MIDIPathBox.Location, MIDIPathBox.Size);
+            recTxt2 = new Rectangle(ExportPathBox.Location, ExportPathBox.Size);
+            recLis1 = new Rectangle(MIDIListView.Location, MIDIListView.Size);
+            recBar1 = new Rectangle(progressBar.Location, progressBar.Size);
+
+            AutoSizeColumnList(MIDIListView);
+
             CopyStringCollectionToStringArray(Settings.Default.ColorText1, instruments1);
             CopyStringCollectionToStringArray(Settings.Default.ColorText2, instruments2);
             CopyStringCollectionToStringArray(Settings.Default.ColorText3, instruments3);
@@ -46,6 +69,70 @@ namespace MIDI_Splitter_Lite
             ExportPathBox.Text = Settings.Default.ExportPath;
 
             SetupListViewContextMenu();
+        }
+
+        private void resize_Control(Control c, Rectangle r)
+        {
+            float xRatio = (float)(this.Width) / (float)(formOriginalSize.Width);
+            float yRatio = (float)(this.Height) / (float)(formOriginalSize.Height);
+            int newX = (int)(r.X * xRatio);
+            int newY = (int)(r.Y * yRatio);
+
+            int newWidth = (int)(r.Width * xRatio);
+            int newHeight = (int)(r.Height * yRatio);
+
+            c.Location = new Point(newX, newY);
+            c.Size = new Size(newWidth, newHeight);
+        }
+
+        private void AutoSizeColumnList(ListView listView)
+        {
+            // Prevents flickering
+            listView.BeginUpdate();
+
+            // Auto size columns using header
+            listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+            // Store the current width of all columns based on header
+            int[] headerWidths = new int[listView.Columns.Count];
+            for (int i = 0; i < listView.Columns.Count; i++)
+            {
+                headerWidths[i] = listView.Columns[i].Width;
+            }
+
+            // Auto size columns using data
+            listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+
+            // Find the maximum width for the second column
+            int secondColumnMaxWidth = ((int)(this.Width * 0.6));
+
+            // Set the width of each column, ensuring they do not exceed the width of the second column
+            for (int i = 0; i < listView.Columns.Count; i++)
+            {
+                if (i == 1) // This is the second column
+                {
+                    listView.Columns[i].Width = secondColumnMaxWidth;
+                }
+                else // For all other columns
+                {
+                    listView.Columns[i].Width = ((int)(this.Width * 0.13));
+                }
+            }
+
+            listView.EndUpdate();
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            resize_Control(label1, recLab1);
+            resize_Control(label2, recLab2);
+            resize_Control(BrowseBTN, recBut1);
+            resize_Control(ExportBTN, recBut2);
+            resize_Control(MIDIPathBox, recTxt1);
+            resize_Control(ExportPathBox, recTxt2);
+            resize_Control(MIDIListView, recLis1);
+            resize_Control(progressBar, recBar1);
+            AutoSizeColumnList(MIDIListView);
         }
 
         public void RequestRestart()
@@ -935,6 +1022,7 @@ namespace MIDI_Splitter_Lite
                 Color rowColor = GetRowColorBasedOnInstrument(instrumentName);
                 item.BackColor = rowColor;
             }
+            AutoSizeColumnList(MIDIListView);
         }
 
         private void MIDIListView_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
@@ -958,5 +1046,6 @@ namespace MIDI_Splitter_Lite
         {
             RequestRestart();
         }
+
     }
 }
