@@ -60,6 +60,7 @@
             this.colorPicker7 = new System.Windows.Forms.Button();
             this.MinBytesTextBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.AutoReloadBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // CopyFirstTrackBox
@@ -101,8 +102,8 @@
             this.FilePrefixBox.Size = new System.Drawing.Size(132, 17);
             this.FilePrefixBox.TabIndex = 2;
             this.FilePrefixBox.Text = "Use file name as prefix";
-            this.toolTip.SetToolTip(this.FilePrefixBox, "Reads the name of each track from the MIDI file and displays it in the list.\r\nIf " +
-        "multiple names exists for a given track, the latest one will be shown.");
+            this.toolTip.SetToolTip(this.FilePrefixBox, "Prepend the original MIDI file\'s name to each track, this can only be seen in the" +
+        " exported tracks.");
             this.FilePrefixBox.UseVisualStyleBackColor = true;
             // 
             // ReadTrackInstrumentBox
@@ -121,12 +122,11 @@
             // RemoveTracksBox
             // 
             this.RemoveTracksBox.AutoSize = true;
-            this.RemoveTracksBox.Location = new System.Drawing.Point(12, 104);
+            this.RemoveTracksBox.Location = new System.Drawing.Point(12, 119);
             this.RemoveTracksBox.Name = "RemoveTracksBox";
-            this.RemoveTracksBox.Size = new System.Drawing.Size(129, 17);
+            this.RemoveTracksBox.Size = new System.Drawing.Size(15, 14);
             this.RemoveTracksBox.TabIndex = 25;
-            this.RemoveTracksBox.Text = "Remove empty tracks";
-            this.toolTip.SetToolTip(this.RemoveTracksBox, "Removes tracks that are under 105 in size.");
+            this.toolTip.SetToolTip(this.RemoveTracksBox, "Removes tracks that are under x bytes, default is 105.");
             this.RemoveTracksBox.UseVisualStyleBackColor = true;
             // 
             // colorTextBox4
@@ -321,26 +321,39 @@
             // MinBytesTextBox
             // 
             this.MinBytesTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MinBytesTextBox.Location = new System.Drawing.Point(9, 140);
+            this.MinBytesTextBox.Location = new System.Drawing.Point(33, 117);
             this.MinBytesTextBox.Name = "MinBytesTextBox";
-            this.MinBytesTextBox.Size = new System.Drawing.Size(164, 20);
+            this.MinBytesTextBox.Size = new System.Drawing.Size(76, 20);
             this.MinBytesTextBox.TabIndex = 26;
             this.MinBytesTextBox.Text = "105";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 124);
+            this.label8.Location = new System.Drawing.Point(9, 101);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(53, 13);
+            this.label8.Size = new System.Drawing.Size(115, 13);
             this.label8.TabIndex = 27;
-            this.label8.Text = "Min Bytes";
+            this.label8.Text = "Remove Empty Tracks";
+            // 
+            // AutoReloadBox
+            // 
+            this.AutoReloadBox.AutoSize = true;
+            this.AutoReloadBox.Location = new System.Drawing.Point(12, 143);
+            this.AutoReloadBox.Name = "AutoReloadBox";
+            this.AutoReloadBox.Size = new System.Drawing.Size(101, 17);
+            this.AutoReloadBox.TabIndex = 28;
+            this.AutoReloadBox.Text = "Auto reload midi";
+            this.toolTip.SetToolTip(this.AutoReloadBox, "Automatically reload the midi file after changes in the options, any edits made i" +
+        "n the list will be lost.");
+            this.AutoReloadBox.UseVisualStyleBackColor = true;
             // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(185, 445);
+            this.Controls.Add(this.AutoReloadBox);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.MinBytesTextBox);
             this.Controls.Add(this.RemoveTracksBox);
@@ -414,5 +427,6 @@
         private System.Windows.Forms.CheckBox RemoveTracksBox;
         private System.Windows.Forms.TextBox MinBytesTextBox;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox AutoReloadBox;
     }
 }
