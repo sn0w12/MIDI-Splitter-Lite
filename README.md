@@ -23,6 +23,8 @@ Usage
 
 	- Instrument Name Reading: Enable the functionality to read and display the instrument assigned to every track within the MIDI file. 
 
+		- Note: The tracks instrument is simply what it was assigned in the midi, it may be incorrect. <br>
+
 	- File Name Prefixing: Choose to prepend the original MIDI file's name to each track. This option is useful for maintaining a reference to the original file when working with multiple tracks.
 
 	- Color-Coded Track Naming: Personalize your tracks by assigning specific colors to them. Simply input the desired names for your tracks and choose the color you want them to be.
@@ -30,6 +32,8 @@ Usage
 	- Edit Track Names: Before splitting the tracks into individual tracks right click them to edit their names.
 
 	- Remove Empty Tracks: Very simple system to remove any tracks that are under 105 in size.
+
+		- Note: Whenever options are changed, the midi file is reloaded. <br>
 
 4. Once the list is populated with tracks, select the track(s) you wish to be exported. To select multiple tracks, simply hold the CTRL key on your keyboard and left-click each track name in the list. You can also select all tracks in the list by pressing CTRL + A on your keyboard.
 

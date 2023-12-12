@@ -227,18 +227,6 @@ namespace MIDI_Splitter_Lite.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastOpenedFilePath {
-            get {
-                return ((string)(this["LastOpenedFilePath"]));
-            }
-            set {
-                this["LastOpenedFilePath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ReadTrackInstruments {
             get {

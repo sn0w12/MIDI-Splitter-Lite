@@ -169,8 +169,8 @@ namespace MIDI_Splitter_Lite
             }
             else
             {
-                maxBytesTextBox.Text = "";
-                return 105;
+                maxBytesTextBox.Text = Settings.Default.MinBytes.ToString();
+                return Settings.Default.MinBytes;
             }
         }
 

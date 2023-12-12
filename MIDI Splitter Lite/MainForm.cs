@@ -20,9 +20,6 @@ namespace MIDI_Splitter_Lite
 
         private ContextMenuStrip listContextMenu;
 
-        public bool RestartApplication { get; private set; }
-        private bool isRestarting = false;
-
         private readonly string[] instruments1 = new string[Settings.Default.ColorText1?.Count ?? 0];
         private readonly string[] instruments2 = new string[Settings.Default.ColorText2?.Count ?? 0];
         private readonly string[] instruments3 = new string[Settings.Default.ColorText3?.Count ?? 0];
@@ -48,21 +45,16 @@ namespace MIDI_Splitter_Lite
 
             ExportPathBox.Text = Settings.Default.ExportPath;
 
-            // Load the last opened file if available
-            string lastOpenedFilePath = Settings.Default.LastOpenedFilePath;
-            if (!string.IsNullOrEmpty(lastOpenedFilePath) && File.Exists(lastOpenedFilePath))
-            {
-                LoadMIDIFile(lastOpenedFilePath);
-            }
-
             SetupListViewContextMenu();
         }
 
         public void RequestRestart()
         {
-            RestartApplication = true;
-            isRestarting = true;
-            this.Close();
+            string lastOpenedFilePath = MIDIPathBox.Text;
+            if (!string.IsNullOrEmpty(lastOpenedFilePath) && File.Exists(lastOpenedFilePath))
+            {
+                LoadMIDIFile(lastOpenedFilePath);
+            }
         }
 
         private void CopyStringCollectionToStringArray(StringCollection source, string[] destination)
@@ -961,13 +953,6 @@ namespace MIDI_Splitter_Lite
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (isRestarting)
-            {
-                Settings.Default.LastOpenedFilePath = MIDIPathBox.Text;
-            } else
-            {
-                Settings.Default.LastOpenedFilePath = null;
-            }
             Settings.Default.ExportPath = ExportPathBox.Text;
             Settings.Default.Save();
         }

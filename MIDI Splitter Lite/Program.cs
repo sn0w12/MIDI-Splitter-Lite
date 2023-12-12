@@ -13,17 +13,7 @@ namespace MIDI_Splitter_Lite
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            bool restartApplication;
-            do
-            {
-                using (var mainForm = new MainForm())
-                {
-                    Application.Run(mainForm);
-                    restartApplication = mainForm.RestartApplication;
-                }
-            }
-            while (restartApplication);
+            Application.Run(new MainForm());
         }
     }
 
