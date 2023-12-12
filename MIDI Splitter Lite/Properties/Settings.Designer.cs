@@ -260,17 +260,5 @@ namespace MIDI_Splitter_Lite.Properties {
                 this["MinBytes"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool AutoReload {
-            get {
-                return ((bool)(this["AutoReload"]));
-            }
-            set {
-                this["AutoReload"] = value;
-            }
-        }
     }
 }

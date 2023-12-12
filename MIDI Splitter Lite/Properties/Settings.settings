@@ -65,8 +65,5 @@
     <Setting Name="MinBytes" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">105</Value>
     </Setting>
-    <Setting Name="AutoReload" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
   </Settings>
 </SettingsFile>

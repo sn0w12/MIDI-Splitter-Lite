@@ -22,7 +22,6 @@ namespace MIDI_Splitter_Lite
             FilePrefixBox.Checked = Settings.Default.FilePrefixBox;
             RemoveTracksBox.Checked = Settings.Default.RemoveTracks;
             MinBytesTextBox.Text = Settings.Default.MinBytes.ToString();
-            AutoReloadBox.Checked = Settings.Default.AutoReload;
 
             colorTextBox1.BackColor = Settings.Default.Color1;
             colorTextBox2.BackColor = Settings.Default.Color2;
@@ -78,7 +77,6 @@ namespace MIDI_Splitter_Lite
             Settings.Default.FilePrefixBox = FilePrefixBox.Checked;
             Settings.Default.RemoveTracks = RemoveTracksBox.Checked;
             Settings.Default.MinBytes = ConvertTextBoxTextToInt(MinBytesTextBox);
-            Settings.Default.AutoReload = AutoReloadBox.Checked;
 
             Settings.Default.Color1 = colorTextBox1.BackColor;
             Settings.Default.Color2 = colorTextBox2.BackColor;
@@ -98,8 +96,7 @@ namespace MIDI_Splitter_Lite
 
             Settings.Default.Save();
 
-            if(Settings.Default.AutoReload)
-                mainForm.RequestRestart();
+            mainForm.RequestRestart();
         }
 
         private void openColorPicker(TextBox textBox)
