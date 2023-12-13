@@ -260,5 +260,17 @@ namespace MIDI_Splitter_Lite.Properties {
                 this["MinBytes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ExportSub {
+            get {
+                return ((bool)(this["ExportSub"]));
+            }
+            set {
+                this["ExportSub"] = value;
+            }
+        }
     }
 }

@@ -60,6 +60,7 @@
             this.colorPicker7 = new System.Windows.Forms.Button();
             this.MinBytesTextBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.ExportSubBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // CopyFirstTrackBox
@@ -121,7 +122,7 @@
             // RemoveTracksBox
             // 
             this.RemoveTracksBox.AutoSize = true;
-            this.RemoveTracksBox.Location = new System.Drawing.Point(12, 121);
+            this.RemoveTracksBox.Location = new System.Drawing.Point(12, 144);
             this.RemoveTracksBox.Name = "RemoveTracksBox";
             this.RemoveTracksBox.Size = new System.Drawing.Size(15, 14);
             this.RemoveTracksBox.TabIndex = 25;
@@ -131,7 +132,7 @@
             // colorTextBox4
             // 
             this.colorTextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox4.Location = new System.Drawing.Point(9, 277);
+            this.colorTextBox4.Location = new System.Drawing.Point(9, 300);
             this.colorTextBox4.Name = "colorTextBox4";
             this.colorTextBox4.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox4.TabIndex = 3;
@@ -139,7 +140,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 261);
+            this.label1.Location = new System.Drawing.Point(9, 284);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 4;
@@ -148,7 +149,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 144);
+            this.label2.Location = new System.Drawing.Point(9, 167);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 13);
             this.label2.TabIndex = 6;
@@ -157,7 +158,7 @@
             // colorTextBox1
             // 
             this.colorTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox1.Location = new System.Drawing.Point(9, 160);
+            this.colorTextBox1.Location = new System.Drawing.Point(9, 183);
             this.colorTextBox1.Name = "colorTextBox1";
             this.colorTextBox1.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox1.TabIndex = 5;
@@ -165,7 +166,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 378);
+            this.label3.Location = new System.Drawing.Point(9, 401);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 8;
@@ -174,7 +175,7 @@
             // colorTextBox7
             // 
             this.colorTextBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox7.Location = new System.Drawing.Point(9, 394);
+            this.colorTextBox7.Location = new System.Drawing.Point(9, 417);
             this.colorTextBox7.Name = "colorTextBox7";
             this.colorTextBox7.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox7.TabIndex = 7;
@@ -182,7 +183,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 183);
+            this.label4.Location = new System.Drawing.Point(9, 206);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(40, 13);
             this.label4.TabIndex = 10;
@@ -191,7 +192,7 @@
             // colorTextBox2
             // 
             this.colorTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox2.Location = new System.Drawing.Point(9, 199);
+            this.colorTextBox2.Location = new System.Drawing.Point(9, 222);
             this.colorTextBox2.Name = "colorTextBox2";
             this.colorTextBox2.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox2.TabIndex = 9;
@@ -199,7 +200,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 300);
+            this.label5.Location = new System.Drawing.Point(9, 323);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 13);
             this.label5.TabIndex = 14;
@@ -208,7 +209,7 @@
             // colorTextBox5
             // 
             this.colorTextBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox5.Location = new System.Drawing.Point(9, 316);
+            this.colorTextBox5.Location = new System.Drawing.Point(9, 339);
             this.colorTextBox5.Name = "colorTextBox5";
             this.colorTextBox5.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox5.TabIndex = 13;
@@ -216,7 +217,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 222);
+            this.label6.Location = new System.Drawing.Point(9, 245);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 12;
@@ -225,7 +226,7 @@
             // colorTextBox3
             // 
             this.colorTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox3.Location = new System.Drawing.Point(9, 238);
+            this.colorTextBox3.Location = new System.Drawing.Point(9, 261);
             this.colorTextBox3.Name = "colorTextBox3";
             this.colorTextBox3.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox3.TabIndex = 11;
@@ -233,7 +234,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 339);
+            this.label7.Location = new System.Drawing.Point(9, 362);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(40, 13);
             this.label7.TabIndex = 16;
@@ -242,14 +243,14 @@
             // colorTextBox6
             // 
             this.colorTextBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox6.Location = new System.Drawing.Point(9, 355);
+            this.colorTextBox6.Location = new System.Drawing.Point(9, 378);
             this.colorTextBox6.Name = "colorTextBox6";
             this.colorTextBox6.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox6.TabIndex = 15;
             // 
             // colorPicker1
             // 
-            this.colorPicker1.Location = new System.Drawing.Point(115, 160);
+            this.colorPicker1.Location = new System.Drawing.Point(115, 183);
             this.colorPicker1.Name = "colorPicker1";
             this.colorPicker1.Size = new System.Drawing.Size(62, 20);
             this.colorPicker1.TabIndex = 17;
@@ -259,7 +260,7 @@
             // 
             // colorPicker2
             // 
-            this.colorPicker2.Location = new System.Drawing.Point(115, 199);
+            this.colorPicker2.Location = new System.Drawing.Point(115, 222);
             this.colorPicker2.Name = "colorPicker2";
             this.colorPicker2.Size = new System.Drawing.Size(62, 20);
             this.colorPicker2.TabIndex = 18;
@@ -269,7 +270,7 @@
             // 
             // colorPicker3
             // 
-            this.colorPicker3.Location = new System.Drawing.Point(115, 238);
+            this.colorPicker3.Location = new System.Drawing.Point(115, 261);
             this.colorPicker3.Name = "colorPicker3";
             this.colorPicker3.Size = new System.Drawing.Size(62, 20);
             this.colorPicker3.TabIndex = 19;
@@ -279,7 +280,7 @@
             // 
             // colorPicker4
             // 
-            this.colorPicker4.Location = new System.Drawing.Point(115, 277);
+            this.colorPicker4.Location = new System.Drawing.Point(115, 300);
             this.colorPicker4.Name = "colorPicker4";
             this.colorPicker4.Size = new System.Drawing.Size(62, 20);
             this.colorPicker4.TabIndex = 20;
@@ -289,7 +290,7 @@
             // 
             // colorPicker5
             // 
-            this.colorPicker5.Location = new System.Drawing.Point(115, 316);
+            this.colorPicker5.Location = new System.Drawing.Point(115, 339);
             this.colorPicker5.Name = "colorPicker5";
             this.colorPicker5.Size = new System.Drawing.Size(62, 20);
             this.colorPicker5.TabIndex = 21;
@@ -299,7 +300,7 @@
             // 
             // colorPicker6
             // 
-            this.colorPicker6.Location = new System.Drawing.Point(115, 355);
+            this.colorPicker6.Location = new System.Drawing.Point(115, 378);
             this.colorPicker6.Name = "colorPicker6";
             this.colorPicker6.Size = new System.Drawing.Size(62, 20);
             this.colorPicker6.TabIndex = 22;
@@ -309,7 +310,7 @@
             // 
             // colorPicker7
             // 
-            this.colorPicker7.Location = new System.Drawing.Point(115, 394);
+            this.colorPicker7.Location = new System.Drawing.Point(115, 417);
             this.colorPicker7.Name = "colorPicker7";
             this.colorPicker7.Size = new System.Drawing.Size(62, 20);
             this.colorPicker7.TabIndex = 23;
@@ -320,7 +321,7 @@
             // MinBytesTextBox
             // 
             this.MinBytesTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MinBytesTextBox.Location = new System.Drawing.Point(33, 119);
+            this.MinBytesTextBox.Location = new System.Drawing.Point(33, 142);
             this.MinBytesTextBox.Name = "MinBytesTextBox";
             this.MinBytesTextBox.Size = new System.Drawing.Size(144, 20);
             this.MinBytesTextBox.TabIndex = 26;
@@ -329,17 +330,30 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 101);
+            this.label8.Location = new System.Drawing.Point(12, 124);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(110, 13);
             this.label8.TabIndex = 27;
             this.label8.Text = "Remove empty tracks";
             // 
+            // ExportSubBox
+            // 
+            this.ExportSubBox.AutoSize = true;
+            this.ExportSubBox.Location = new System.Drawing.Point(12, 104);
+            this.ExportSubBox.Name = "ExportSubBox";
+            this.ExportSubBox.Size = new System.Drawing.Size(114, 17);
+            this.ExportSubBox.TabIndex = 28;
+            this.ExportSubBox.Text = "Export to subfolder";
+            this.toolTip.SetToolTip(this.ExportSubBox, "Choose a master folder and have the program automatically create a folder\r\nwith t" +
+        "he name of the original midi file when exporting.");
+            this.ExportSubBox.UseVisualStyleBackColor = true;
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(185, 427);
+            this.ClientSize = new System.Drawing.Size(185, 450);
+            this.Controls.Add(this.ExportSubBox);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.MinBytesTextBox);
             this.Controls.Add(this.RemoveTracksBox);
@@ -413,5 +427,6 @@
         private System.Windows.Forms.CheckBox RemoveTracksBox;
         private System.Windows.Forms.TextBox MinBytesTextBox;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox ExportSubBox;
     }
 }
