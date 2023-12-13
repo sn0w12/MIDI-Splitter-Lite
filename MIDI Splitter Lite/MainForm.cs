@@ -622,9 +622,18 @@ namespace MIDI_Splitter_Lite
                     item.Selected = true;
                 }
             }
+            if (e.KeyCode == Keys.S && e.Control)
+            {
+                ExportTracks();
+            }
         }
 
         private void splitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportTracks();
+        }
+
+        private void ExportTracks()
         {
             if (string.IsNullOrEmpty(MIDIPathBox.Text) || !File.Exists(MIDIPathBox.Text))
             {
