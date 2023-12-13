@@ -125,7 +125,7 @@
             this.RemoveTracksBox.Name = "RemoveTracksBox";
             this.RemoveTracksBox.Size = new System.Drawing.Size(15, 14);
             this.RemoveTracksBox.TabIndex = 25;
-            this.toolTip.SetToolTip(this.RemoveTracksBox, "Removes tracks that are under x  in size, default is 105.");
+            this.toolTip.SetToolTip(this.RemoveTracksBox, "Removes tracks that are under x bytes, default is 105.");
             this.RemoveTracksBox.UseVisualStyleBackColor = true;
             // 
             // colorTextBox4
