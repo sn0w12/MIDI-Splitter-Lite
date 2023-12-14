@@ -77,5 +77,11 @@
     <Setting Name="AutomaticColors" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="MaxColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Red</Value>
+    </Setting>
+    <Setting Name="MinColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">192, 255, 255</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

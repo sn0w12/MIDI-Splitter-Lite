@@ -308,5 +308,29 @@ namespace MIDI_Splitter_Lite.Properties {
                 this["AutomaticColors"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public global::System.Drawing.Color MaxColor {
+            get {
+                return ((global::System.Drawing.Color)(this["MaxColor"]));
+            }
+            set {
+                this["MaxColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192, 255, 255")]
+        public global::System.Drawing.Color MinColor {
+            get {
+                return ((global::System.Drawing.Color)(this["MinColor"]));
+            }
+            set {
+                this["MinColor"] = value;
+            }
+        }
     }
 }

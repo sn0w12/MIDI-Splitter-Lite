@@ -30,13 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsForm));
-            this.CopyFirstTrackBox = new System.Windows.Forms.CheckBox();
-            this.ReadTrackNamesBox = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.FilePrefixBox = new System.Windows.Forms.CheckBox();
-            this.ReadTrackInstrumentBox = new System.Windows.Forms.CheckBox();
-            this.RemoveTracksBox = new System.Windows.Forms.CheckBox();
-            this.ExportSubBox = new System.Windows.Forms.CheckBox();
             this.colorTextBox4 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -61,34 +55,17 @@
             this.colorPicker7 = new System.Windows.Forms.Button();
             this.MinBytesTextBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.ManualColorBox = new System.Windows.Forms.CheckBox();
-            this.AutoColorBox = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.colorPickerMin = new System.Windows.Forms.Button();
+            this.colorPickerMax = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.colorTextBoxMin = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.colorTextBoxMax = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // CopyFirstTrackBox
-            // 
-            this.CopyFirstTrackBox.AutoSize = true;
-            this.CopyFirstTrackBox.Location = new System.Drawing.Point(12, 12);
-            this.CopyFirstTrackBox.Name = "CopyFirstTrackBox";
-            this.CopyFirstTrackBox.Size = new System.Drawing.Size(173, 17);
-            this.CopyFirstTrackBox.TabIndex = 0;
-            this.CopyFirstTrackBox.Text = "Copy first track to output tracks";
-            this.toolTip.SetToolTip(this.CopyFirstTrackBox, "Copies the first track in the list to the selected tracks to be exported.\r\nExport" +
-        "ed MIDIs will contain two tracks.");
-            this.CopyFirstTrackBox.UseVisualStyleBackColor = true;
-            // 
-            // ReadTrackNamesBox
-            // 
-            this.ReadTrackNamesBox.AutoSize = true;
-            this.ReadTrackNamesBox.Location = new System.Drawing.Point(12, 35);
-            this.ReadTrackNamesBox.Name = "ReadTrackNamesBox";
-            this.ReadTrackNamesBox.Size = new System.Drawing.Size(113, 17);
-            this.ReadTrackNamesBox.TabIndex = 1;
-            this.ReadTrackNamesBox.Text = "Read track names";
-            this.toolTip.SetToolTip(this.ReadTrackNamesBox, "Reads the name of each track from the MIDI file and displays it in the list.\r\nIf " +
-        "multiple names exists for a given track, the latest one will be shown.");
-            this.ReadTrackNamesBox.UseVisualStyleBackColor = true;
-            this.ReadTrackNamesBox.CheckedChanged += new System.EventHandler(this.ReadTrackNamesBox_CheckedChanged);
             // 
             // toolTip
             // 
@@ -96,57 +73,10 @@
             this.toolTip.InitialDelay = 500;
             this.toolTip.ReshowDelay = 100;
             // 
-            // FilePrefixBox
-            // 
-            this.FilePrefixBox.AutoSize = true;
-            this.FilePrefixBox.Location = new System.Drawing.Point(12, 81);
-            this.FilePrefixBox.Name = "FilePrefixBox";
-            this.FilePrefixBox.Size = new System.Drawing.Size(132, 17);
-            this.FilePrefixBox.TabIndex = 2;
-            this.FilePrefixBox.Text = "Use file name as prefix";
-            this.toolTip.SetToolTip(this.FilePrefixBox, "Reads the name of each track from the MIDI file and displays it in the list.\r\nIf " +
-        "multiple names exists for a given track, the latest one will be shown.");
-            this.FilePrefixBox.UseVisualStyleBackColor = true;
-            // 
-            // ReadTrackInstrumentBox
-            // 
-            this.ReadTrackInstrumentBox.AutoSize = true;
-            this.ReadTrackInstrumentBox.Location = new System.Drawing.Point(12, 58);
-            this.ReadTrackInstrumentBox.Name = "ReadTrackInstrumentBox";
-            this.ReadTrackInstrumentBox.Size = new System.Drawing.Size(135, 17);
-            this.ReadTrackInstrumentBox.TabIndex = 24;
-            this.ReadTrackInstrumentBox.Text = "Read track instruments";
-            this.toolTip.SetToolTip(this.ReadTrackInstrumentBox, "Reads the name of each track from the MIDI file and displays it in the list.\r\nIf " +
-        "multiple names exists for a given track, the latest one will be shown.");
-            this.ReadTrackInstrumentBox.UseVisualStyleBackColor = true;
-            this.ReadTrackInstrumentBox.CheckedChanged += new System.EventHandler(this.ReadTrackInstrumentBox_CheckedChanged);
-            // 
-            // RemoveTracksBox
-            // 
-            this.RemoveTracksBox.AutoSize = true;
-            this.RemoveTracksBox.Location = new System.Drawing.Point(12, 190);
-            this.RemoveTracksBox.Name = "RemoveTracksBox";
-            this.RemoveTracksBox.Size = new System.Drawing.Size(15, 14);
-            this.RemoveTracksBox.TabIndex = 25;
-            this.toolTip.SetToolTip(this.RemoveTracksBox, "Removes tracks that are under x bytes, default is 105.");
-            this.RemoveTracksBox.UseVisualStyleBackColor = true;
-            // 
-            // ExportSubBox
-            // 
-            this.ExportSubBox.AutoSize = true;
-            this.ExportSubBox.Location = new System.Drawing.Point(12, 104);
-            this.ExportSubBox.Name = "ExportSubBox";
-            this.ExportSubBox.Size = new System.Drawing.Size(114, 17);
-            this.ExportSubBox.TabIndex = 28;
-            this.ExportSubBox.Text = "Export to subfolder";
-            this.toolTip.SetToolTip(this.ExportSubBox, "Choose a master folder and have the program automatically create a folder\r\nwith t" +
-        "he name of the original midi file when exporting.");
-            this.ExportSubBox.UseVisualStyleBackColor = true;
-            // 
             // colorTextBox4
             // 
             this.colorTextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox4.Location = new System.Drawing.Point(9, 346);
+            this.colorTextBox4.Location = new System.Drawing.Point(9, 319);
             this.colorTextBox4.Name = "colorTextBox4";
             this.colorTextBox4.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox4.TabIndex = 3;
@@ -154,7 +84,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 330);
+            this.label1.Location = new System.Drawing.Point(9, 303);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 4;
@@ -163,7 +93,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 213);
+            this.label2.Location = new System.Drawing.Point(9, 186);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 13);
             this.label2.TabIndex = 6;
@@ -172,7 +102,7 @@
             // colorTextBox1
             // 
             this.colorTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox1.Location = new System.Drawing.Point(9, 229);
+            this.colorTextBox1.Location = new System.Drawing.Point(9, 202);
             this.colorTextBox1.Name = "colorTextBox1";
             this.colorTextBox1.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox1.TabIndex = 5;
@@ -180,7 +110,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 447);
+            this.label3.Location = new System.Drawing.Point(9, 420);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 8;
@@ -189,7 +119,7 @@
             // colorTextBox7
             // 
             this.colorTextBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox7.Location = new System.Drawing.Point(9, 463);
+            this.colorTextBox7.Location = new System.Drawing.Point(9, 436);
             this.colorTextBox7.Name = "colorTextBox7";
             this.colorTextBox7.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox7.TabIndex = 7;
@@ -197,7 +127,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 252);
+            this.label4.Location = new System.Drawing.Point(9, 225);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(40, 13);
             this.label4.TabIndex = 10;
@@ -206,7 +136,7 @@
             // colorTextBox2
             // 
             this.colorTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox2.Location = new System.Drawing.Point(9, 268);
+            this.colorTextBox2.Location = new System.Drawing.Point(9, 241);
             this.colorTextBox2.Name = "colorTextBox2";
             this.colorTextBox2.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox2.TabIndex = 9;
@@ -214,7 +144,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 369);
+            this.label5.Location = new System.Drawing.Point(9, 342);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 13);
             this.label5.TabIndex = 14;
@@ -223,7 +153,7 @@
             // colorTextBox5
             // 
             this.colorTextBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox5.Location = new System.Drawing.Point(9, 385);
+            this.colorTextBox5.Location = new System.Drawing.Point(9, 358);
             this.colorTextBox5.Name = "colorTextBox5";
             this.colorTextBox5.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox5.TabIndex = 13;
@@ -231,7 +161,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 291);
+            this.label6.Location = new System.Drawing.Point(9, 264);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 12;
@@ -240,7 +170,7 @@
             // colorTextBox3
             // 
             this.colorTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox3.Location = new System.Drawing.Point(9, 307);
+            this.colorTextBox3.Location = new System.Drawing.Point(9, 280);
             this.colorTextBox3.Name = "colorTextBox3";
             this.colorTextBox3.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox3.TabIndex = 11;
@@ -248,7 +178,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 408);
+            this.label7.Location = new System.Drawing.Point(9, 381);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(40, 13);
             this.label7.TabIndex = 16;
@@ -257,14 +187,14 @@
             // colorTextBox6
             // 
             this.colorTextBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorTextBox6.Location = new System.Drawing.Point(9, 424);
+            this.colorTextBox6.Location = new System.Drawing.Point(9, 397);
             this.colorTextBox6.Name = "colorTextBox6";
             this.colorTextBox6.Size = new System.Drawing.Size(100, 20);
             this.colorTextBox6.TabIndex = 15;
             // 
             // colorPicker1
             // 
-            this.colorPicker1.Location = new System.Drawing.Point(115, 229);
+            this.colorPicker1.Location = new System.Drawing.Point(115, 202);
             this.colorPicker1.Name = "colorPicker1";
             this.colorPicker1.Size = new System.Drawing.Size(62, 20);
             this.colorPicker1.TabIndex = 17;
@@ -274,7 +204,7 @@
             // 
             // colorPicker2
             // 
-            this.colorPicker2.Location = new System.Drawing.Point(115, 268);
+            this.colorPicker2.Location = new System.Drawing.Point(115, 241);
             this.colorPicker2.Name = "colorPicker2";
             this.colorPicker2.Size = new System.Drawing.Size(62, 20);
             this.colorPicker2.TabIndex = 18;
@@ -284,7 +214,7 @@
             // 
             // colorPicker3
             // 
-            this.colorPicker3.Location = new System.Drawing.Point(115, 307);
+            this.colorPicker3.Location = new System.Drawing.Point(115, 280);
             this.colorPicker3.Name = "colorPicker3";
             this.colorPicker3.Size = new System.Drawing.Size(62, 20);
             this.colorPicker3.TabIndex = 19;
@@ -294,7 +224,7 @@
             // 
             // colorPicker4
             // 
-            this.colorPicker4.Location = new System.Drawing.Point(115, 346);
+            this.colorPicker4.Location = new System.Drawing.Point(115, 319);
             this.colorPicker4.Name = "colorPicker4";
             this.colorPicker4.Size = new System.Drawing.Size(62, 20);
             this.colorPicker4.TabIndex = 20;
@@ -304,7 +234,7 @@
             // 
             // colorPicker5
             // 
-            this.colorPicker5.Location = new System.Drawing.Point(115, 385);
+            this.colorPicker5.Location = new System.Drawing.Point(115, 358);
             this.colorPicker5.Name = "colorPicker5";
             this.colorPicker5.Size = new System.Drawing.Size(62, 20);
             this.colorPicker5.TabIndex = 21;
@@ -314,7 +244,7 @@
             // 
             // colorPicker6
             // 
-            this.colorPicker6.Location = new System.Drawing.Point(115, 424);
+            this.colorPicker6.Location = new System.Drawing.Point(115, 397);
             this.colorPicker6.Name = "colorPicker6";
             this.colorPicker6.Size = new System.Drawing.Size(62, 20);
             this.colorPicker6.TabIndex = 22;
@@ -324,7 +254,7 @@
             // 
             // colorPicker7
             // 
-            this.colorPicker7.Location = new System.Drawing.Point(115, 463);
+            this.colorPicker7.Location = new System.Drawing.Point(115, 436);
             this.colorPicker7.Name = "colorPicker7";
             this.colorPicker7.Size = new System.Drawing.Size(62, 20);
             this.colorPicker7.TabIndex = 23;
@@ -335,59 +265,133 @@
             // MinBytesTextBox
             // 
             this.MinBytesTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MinBytesTextBox.Location = new System.Drawing.Point(33, 188);
+            this.MinBytesTextBox.Location = new System.Drawing.Point(9, 45);
             this.MinBytesTextBox.Name = "MinBytesTextBox";
-            this.MinBytesTextBox.Size = new System.Drawing.Size(144, 20);
+            this.MinBytesTextBox.Size = new System.Drawing.Size(100, 20);
             this.MinBytesTextBox.TabIndex = 26;
             this.MinBytesTextBox.Text = "105";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 170);
+            this.label8.Location = new System.Drawing.Point(9, 29);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(110, 13);
             this.label8.TabIndex = 27;
             this.label8.Text = "Remove empty tracks";
             // 
-            // ManualColorBox
+            // label9
             // 
-            this.ManualColorBox.AutoSize = true;
-            this.ManualColorBox.Location = new System.Drawing.Point(12, 127);
-            this.ManualColorBox.Name = "ManualColorBox";
-            this.ManualColorBox.Size = new System.Drawing.Size(113, 17);
-            this.ManualColorBox.TabIndex = 29;
-            this.ManualColorBox.Text = "Use manual colors";
-            this.toolTip.SetToolTip(this.ManualColorBox, "Choose a master folder and have the program automatically create a folder\r\nwith t" +
-        "he name of the original midi file when exporting.");
-            this.ManualColorBox.UseVisualStyleBackColor = true;
-            this.ManualColorBox.CheckedChanged += new System.EventHandler(this.ManualColorBox_CheckedChanged);
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(112, 47);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(33, 13);
+            this.label9.TabIndex = 28;
+            this.label9.Text = "Bytes";
             // 
-            // AutoColorBox
+            // label10
             // 
-            this.AutoColorBox.AutoSize = true;
-            this.AutoColorBox.Location = new System.Drawing.Point(12, 150);
-            this.AutoColorBox.Name = "AutoColorBox";
-            this.AutoColorBox.Size = new System.Drawing.Size(117, 17);
-            this.AutoColorBox.TabIndex = 30;
-            this.AutoColorBox.Text = "Color tracks by size";
-            this.toolTip.SetToolTip(this.AutoColorBox, "Choose a master folder and have the program automatically create a folder\r\nwith t" +
-        "he name of the original midi file when exporting.");
-            this.AutoColorBox.UseVisualStyleBackColor = true;
-            this.AutoColorBox.CheckedChanged += new System.EventHandler(this.AutoColorBox_CheckedChanged);
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label10.Location = new System.Drawing.Point(8, 166);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(98, 17);
+            this.label10.TabIndex = 29;
+            this.label10.Text = "Manual Colors";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label11.Location = new System.Drawing.Point(8, 68);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(114, 17);
+            this.label11.TabIndex = 36;
+            this.label11.Text = "Automatic Colors";
+            // 
+            // colorPickerMin
+            // 
+            this.colorPickerMin.Location = new System.Drawing.Point(115, 143);
+            this.colorPickerMin.Name = "colorPickerMin";
+            this.colorPickerMin.Size = new System.Drawing.Size(62, 20);
+            this.colorPickerMin.TabIndex = 35;
+            this.colorPickerMin.Text = "Choose";
+            this.colorPickerMin.UseVisualStyleBackColor = true;
+            this.colorPickerMin.Click += new System.EventHandler(this.colorPickerMin_Click);
+            // 
+            // colorPickerMax
+            // 
+            this.colorPickerMax.Location = new System.Drawing.Point(115, 104);
+            this.colorPickerMax.Name = "colorPickerMax";
+            this.colorPickerMax.Size = new System.Drawing.Size(62, 20);
+            this.colorPickerMax.TabIndex = 34;
+            this.colorPickerMax.Text = "Choose";
+            this.colorPickerMax.UseVisualStyleBackColor = true;
+            this.colorPickerMax.Click += new System.EventHandler(this.colorPickerMax_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(9, 127);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(51, 13);
+            this.label12.TabIndex = 33;
+            this.label12.Text = "Min Color";
+            // 
+            // colorTextBoxMin
+            // 
+            this.colorTextBoxMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.colorTextBoxMin.Enabled = false;
+            this.colorTextBoxMin.Location = new System.Drawing.Point(9, 143);
+            this.colorTextBoxMin.Name = "colorTextBoxMin";
+            this.colorTextBoxMin.Size = new System.Drawing.Size(100, 20);
+            this.colorTextBoxMin.TabIndex = 32;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(9, 88);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(54, 13);
+            this.label13.TabIndex = 31;
+            this.label13.Text = "Max Color";
+            // 
+            // colorTextBoxMax
+            // 
+            this.colorTextBoxMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.colorTextBoxMax.Enabled = false;
+            this.colorTextBoxMax.Location = new System.Drawing.Point(9, 104);
+            this.colorTextBoxMax.Name = "colorTextBoxMax";
+            this.colorTextBoxMax.Size = new System.Drawing.Size(100, 20);
+            this.colorTextBoxMax.TabIndex = 30;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label14.Location = new System.Drawing.Point(8, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(139, 20);
+            this.label14.TabIndex = 37;
+            this.label14.Text = "Advanced Options";
             // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(185, 498);
-            this.Controls.Add(this.AutoColorBox);
-            this.Controls.Add(this.ManualColorBox);
-            this.Controls.Add(this.ExportSubBox);
+            this.ClientSize = new System.Drawing.Size(185, 465);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.colorPickerMin);
+            this.Controls.Add(this.colorPickerMax);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.colorTextBoxMin);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.colorTextBoxMax);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.MinBytesTextBox);
-            this.Controls.Add(this.RemoveTracksBox);
-            this.Controls.Add(this.ReadTrackInstrumentBox);
             this.Controls.Add(this.colorPicker7);
             this.Controls.Add(this.colorPicker6);
             this.Controls.Add(this.colorPicker5);
@@ -409,9 +413,6 @@
             this.Controls.Add(this.colorTextBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.colorTextBox4);
-            this.Controls.Add(this.FilePrefixBox);
-            this.Controls.Add(this.ReadTrackNamesBox);
-            this.Controls.Add(this.CopyFirstTrackBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -426,11 +427,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox CopyFirstTrackBox;
         private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.CheckBox ReadTrackNamesBox;
-        private System.Windows.Forms.CheckBox FilePrefixBox;
         private System.Windows.Forms.TextBox colorTextBox4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -453,12 +450,17 @@
         private System.Windows.Forms.Button colorPicker5;
         private System.Windows.Forms.Button colorPicker6;
         private System.Windows.Forms.Button colorPicker7;
-        private System.Windows.Forms.CheckBox ReadTrackInstrumentBox;
-        private System.Windows.Forms.CheckBox RemoveTracksBox;
         private System.Windows.Forms.TextBox MinBytesTextBox;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox ExportSubBox;
-        private System.Windows.Forms.CheckBox ManualColorBox;
-        private System.Windows.Forms.CheckBox AutoColorBox;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button colorPickerMin;
+        private System.Windows.Forms.Button colorPickerMax;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox colorTextBoxMin;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox colorTextBoxMax;
+        private System.Windows.Forms.Label label14;
     }
 }

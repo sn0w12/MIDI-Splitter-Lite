@@ -16,15 +16,6 @@ namespace MIDI_Splitter_Lite
             InitializeComponent();
             this.mainForm = mainForm;
 
-            CopyFirstTrackBox.Checked = Settings.Default.CopyFirstTrack;
-            ReadTrackNamesBox.Checked = Settings.Default.ReadTrackNames;
-            ReadTrackInstrumentBox.Checked = Settings.Default.ReadTrackInstruments;
-            FilePrefixBox.Checked = Settings.Default.FilePrefixBox;
-            RemoveTracksBox.Checked = Settings.Default.RemoveTracks;
-            ExportSubBox.Checked = Settings.Default.ExportSub;
-            ManualColorBox.Checked = Settings.Default.ManualColors;
-            AutoColorBox.Checked = Settings.Default.AutomaticColors;
-
             MinBytesTextBox.Text = Settings.Default.MinBytes.ToString();
 
             colorTextBox1.BackColor = Settings.Default.Color1;
@@ -34,6 +25,9 @@ namespace MIDI_Splitter_Lite
             colorTextBox5.BackColor = Settings.Default.Color5;
             colorTextBox6.BackColor = Settings.Default.Color6;
             colorTextBox7.BackColor = Settings.Default.Color7;
+
+            colorTextBoxMax.BackColor = Settings.Default.MaxColor;
+            colorTextBoxMin.BackColor = Settings.Default.MinColor;
 
             string color1 = "";
             string color2 = "";
@@ -75,15 +69,6 @@ namespace MIDI_Splitter_Lite
 
         private void OptionsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Settings.Default.CopyFirstTrack = CopyFirstTrackBox.Checked;
-            Settings.Default.ReadTrackNames = ReadTrackNamesBox.Checked;
-            Settings.Default.ReadTrackInstruments = ReadTrackInstrumentBox.Checked;
-            Settings.Default.FilePrefixBox = FilePrefixBox.Checked;
-            Settings.Default.RemoveTracks = RemoveTracksBox.Checked;
-            Settings.Default.ExportSub = ExportSubBox.Checked;
-            Settings.Default.ManualColors = ManualColorBox.Checked;
-            Settings.Default.AutomaticColors = AutoColorBox.Checked;
-
             Settings.Default.MinBytes = ConvertTextBoxTextToInt(MinBytesTextBox);
 
             Settings.Default.Color1 = colorTextBox1.BackColor;
@@ -93,6 +78,9 @@ namespace MIDI_Splitter_Lite
             Settings.Default.Color5 = colorTextBox5.BackColor;
             Settings.Default.Color6 = colorTextBox6.BackColor;
             Settings.Default.Color7 = colorTextBox7.BackColor;
+
+            Settings.Default.MaxColor = colorTextBoxMax.BackColor;
+            Settings.Default.MinColor = colorTextBoxMin.BackColor;
 
             Settings.Default.ColorText1 = saveTextBox(colorTextBox1);
             Settings.Default.ColorText2 = saveTextBox(colorTextBox2);
@@ -155,18 +143,6 @@ namespace MIDI_Splitter_Lite
             openColorPicker(colorTextBox7);
         }
 
-        private void ReadTrackNamesBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (ReadTrackNamesBox.Checked && ReadTrackInstrumentBox.Checked)
-                ReadTrackInstrumentBox.CheckState = CheckState.Unchecked;
-        }
-
-        private void ReadTrackInstrumentBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (ReadTrackNamesBox.Checked && ReadTrackInstrumentBox.Checked)
-                ReadTrackNamesBox.CheckState = CheckState.Unchecked;
-        }
-
         private int ConvertTextBoxTextToInt(TextBox maxBytesTextBox)
         {
             int result;
@@ -181,17 +157,14 @@ namespace MIDI_Splitter_Lite
             }
         }
 
-        private void ManualColorBox_CheckedChanged(object sender, EventArgs e)
+        private void colorPickerMax_Click(object sender, EventArgs e)
         {
-            if (ManualColorBox.Checked && AutoColorBox.Checked)
-                AutoColorBox.CheckState = CheckState.Unchecked;
-
+            openColorPicker(colorTextBoxMax);
         }
 
-        private void AutoColorBox_CheckedChanged(object sender, EventArgs e)
+        private void colorPickerMin_Click(object sender, EventArgs e)
         {
-            if (ManualColorBox.Checked && AutoColorBox.Checked)
-                ManualColorBox.CheckState = CheckState.Unchecked;
+            openColorPicker(colorTextBoxMin);
         }
     }
 }

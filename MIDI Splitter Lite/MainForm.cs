@@ -48,6 +48,8 @@ namespace MIDI_Splitter_Lite
         {
             InitializeComponent();
 
+            InitializeOptionsStripMenu();
+
             lvwColumnSorter = new ListViewItemComparer();
             this.MIDIListView.ListViewItemSorter = lvwColumnSorter;
 
@@ -74,6 +76,117 @@ namespace MIDI_Splitter_Lite
 
             ExportPathBox.Text = Settings.Default.ExportPath;
             UpdateSplitText();
+        }
+
+        private void InitializeOptionsStripMenu()
+        {
+            ToolTip toolTip1 = new ToolTip();
+            ToolStripSeparator seperator = new ToolStripSeparator();
+            ToolStripSeparator seperator2 = new ToolStripSeparator();
+            int insertIndex = 0;
+
+            CheckBox copyFirstTrackCheckBox = CreateCheckBox("Copy First Track", Settings.Default.CopyFirstTrack);
+            copyFirstTrackCheckBox.Click += (sender, e) => Settings.Default.CopyFirstTrack = copyFirstTrackCheckBox.Checked;
+            ToolStripControlHost copyFirstTrackHost = new ToolStripControlHost(copyFirstTrackCheckBox);
+            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, copyFirstTrackHost);
+
+            CheckBox ReadTrackNamesBox = CreateCheckBox("Read track names", Settings.Default.ReadTrackNames);
+            CheckBox ReadTrackInstrumentBox = CreateCheckBox("Read track instruments", Settings.Default.ReadTrackInstruments);
+            ReadTrackNamesBox.Click += (sender, e) =>
+            {
+                Settings.Default.ReadTrackNames = ReadTrackNamesBox.Checked;
+                ReadTrackInstrumentBox.Checked = false;
+                Settings.Default.ReadTrackInstruments = ReadTrackInstrumentBox.Checked;
+                RequestRestart();
+            };
+            ToolStripControlHost ReadTrackNamesHost = new ToolStripControlHost(ReadTrackNamesBox);
+            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, ReadTrackNamesHost);
+
+            ReadTrackInstrumentBox.Click += (sender, e) => 
+            {
+                Settings.Default.ReadTrackInstruments = ReadTrackInstrumentBox.Checked;
+                ReadTrackNamesBox.Checked = false;
+                Settings.Default.ReadTrackNames = ReadTrackNamesBox.Checked;
+                RequestRestart();
+            };
+            ToolStripControlHost ReadTrackInstrumentHost = new ToolStripControlHost(ReadTrackInstrumentBox);
+            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, ReadTrackInstrumentHost);
+
+            CheckBox RemoveTracksBox = CreateCheckBox("Remove Empty tracks", Settings.Default.RemoveTracks);
+            RemoveTracksBox.Click += (sender, e) => Settings.Default.RemoveTracks = RemoveTracksBox.Checked;
+            ToolStripControlHost RemoveTracksHost = new ToolStripControlHost(RemoveTracksBox);
+            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, RemoveTracksHost);
+
+            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, seperator);
+
+            CheckBox FilePrefixBox = CreateCheckBox("Use file name as prefix", Settings.Default.FilePrefixBox);
+            FilePrefixBox.Click += (sender, e) => Settings.Default.FilePrefixBox = FilePrefixBox.Checked;
+            ToolStripControlHost FilePrefixHost = new ToolStripControlHost(FilePrefixBox);
+            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, FilePrefixHost);
+
+            CheckBox ExportSubBox = CreateCheckBox("Export to subfolder", Settings.Default.ExportSub);
+            ExportSubBox.Click += (sender, e) => Settings.Default.ExportSub = ExportSubBox.Checked;
+            ToolStripControlHost ExportSubHost = new ToolStripControlHost(ExportSubBox);
+            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, ExportSubHost);
+
+            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, seperator2);
+
+            CheckBox ManualColorBox = CreateCheckBox("Manual Colors", Settings.Default.ManualColors);
+            CheckBox AutoColorBox = CreateCheckBox("Automatic Colors", Settings.Default.AutomaticColors);
+            ManualColorBox.Click += (sender, e) =>
+            {
+                Settings.Default.ManualColors = ManualColorBox.Checked;
+                AutoColorBox.Checked = false;
+                Settings.Default.AutomaticColors = AutoColorBox.Checked;
+                RequestRestart();
+            };
+            ToolStripControlHost ManualColorHost = new ToolStripControlHost(ManualColorBox);
+            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, ManualColorHost);
+
+            AutoColorBox.Click += (sender, e) =>
+            {
+                Settings.Default.AutomaticColors = AutoColorBox.Checked;
+                ManualColorBox.Checked = false;
+                Settings.Default.ManualColors = ManualColorBox.Checked;
+                RequestRestart();
+            };
+            ToolStripControlHost AutoColorHost = new ToolStripControlHost(AutoColorBox);
+            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, AutoColorHost);
+
+            Button AdvancedOptionsButton = new Button();
+            AdvancedOptionsButton.Text = "Advanced Options";
+            AdvancedOptionsButton.Click += optionsToolStripMenuItem_Click;
+            AdvancedOptionsButton.AutoSize = false;
+            AdvancedOptionsButton.Width = (int)(optionsToolStripMenuItem.Width * 2.5);
+            AdvancedOptionsButton.Padding = new Padding(0);
+            AdvancedOptionsButton.Margin = new Padding(0);
+
+            ToolStripControlHost AdvancedOptionsHost = new ToolStripControlHost(AdvancedOptionsButton);
+            AdvancedOptionsHost.AutoSize = false;
+            AdvancedOptionsHost.Padding = new Padding(0);
+            AdvancedOptionsHost.Margin = new Padding(0);
+
+            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, AdvancedOptionsHost);
+
+            toolTip1.SetToolTip(copyFirstTrackCheckBox, "Copies the first track in the list to the selected tracks to be exported.\nExported MIDIs will contain two tracks.");
+            toolTip1.SetToolTip(ReadTrackNamesBox, "Reads the name of each track from the MIDI file and displays it in the list.\nIf multiple names exists for a given track, the latest one will be shown.");
+            toolTip1.SetToolTip(ReadTrackInstrumentBox, "Reads the instrument name of each track from the MIDI file and displays it in the list.\nIf multiple names exists for a given track, the latest one will be shown.");
+            toolTip1.SetToolTip(RemoveTracksBox, "Removes tracks that are under x bytes, default is 105. This value can be changed in advanced options.");
+            toolTip1.SetToolTip(ExportSubBox, "Choose a master folder and have the program automatically create a folder\nwith the name of the original midi file when exporting.");
+            toolTip1.SetToolTip(ManualColorBox, "Manually choose 7 colors for tracks to be colored as. Write track names you\nwant to be colored in the textbox like this: name1,name2,name3");
+            toolTip1.SetToolTip(AutoColorBox, "Choose 2 colors and the program will make a gradient between the largest file and the smallest.");
+        }
+
+        private CheckBox CreateCheckBox(string text, bool isChecked)
+        {
+            CheckBox checkBox = new CheckBox
+            {
+                Text = text,
+                BackColor = Color.Transparent,
+                Checked = isChecked,
+                AutoSize = true
+            };
+            return checkBox;
         }
 
         private void resize_Control(Control c, Rectangle r)
@@ -681,6 +794,13 @@ namespace MIDI_Splitter_Lite
             {
                 ExportTracks();
             }
+            if (e.KeyCode == Keys.R && e.Control)
+            {
+                if (ConfirmationPopup($"Are you sure you want to reload the midi?", $"Reload Midi") == DialogResult.Yes)
+                {
+                    RequestRestart();
+                };
+            }
             if (e.KeyCode == Keys.Delete)
             {
                 if (ConfirmationPopup($"Are you sure you want to delete the track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}?", $"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}") == DialogResult.Yes) 
@@ -1135,11 +1255,11 @@ namespace MIDI_Splitter_Lite
                     string instrumentName = item.SubItems[1].Text.ToLower();
                     Color rowColor = GetRowColorBasedOnInstrument(instrumentName);
                     item.BackColor = rowColor;
+                    item.ForeColor = IsColorDark(rowColor) ? Color.White : Color.Black;
                 }
             }
             else if (Settings.Default.AutomaticColors)
             {
-                // Step 1: Determine the range of file sizes
                 long minSize = long.MaxValue;
                 long maxSize = long.MinValue;
 
@@ -1151,28 +1271,44 @@ namespace MIDI_Splitter_Lite
                 }
 
 
-                // Step 3: Apply the calculated color to each ListViewItem
                 foreach (ListViewItem item in MIDIListView.Items)
                 {
                     long size = ConvertSizeToBytes(item.SubItems[2].Text);
                     Color rowColor = GetGradientColor(size, minSize, maxSize);
                     item.BackColor = rowColor;
+                    item.ForeColor = IsColorDark(rowColor) ? Color.White : Color.Black;
                 }
             }
             AutoSizeColumnList(MIDIListView);
         }
 
+        private bool IsColorDark(Color color)
+        {
+            // Calculate the luminance of the color (using the formula for perceived brightness)
+            double luminance = 0.299 * color.R + 0.587 * color.G + 0.114 * color.B;
+            return luminance < 128;
+        }
+
         Color GetGradientColor(long fileSize, long minSize, long maxSize)
         {
+            Color minColor = Settings.Default.MinColor;
+            Color maxColor = Settings.Default.MaxColor;
+
             // Scale the fileSize between 0 and 1
             double scale = (double)(fileSize - minSize) / (maxSize - minSize);
 
-            // Bright red to calm blue gradient
-            int red = (int)(255 * (scale));
-            int green = (int)(200 * (1 - scale));
-            int blue = (int)(255 * (1 - scale));
+            // Interpolate each color component
+            int red = InterpolateColorComponent(minColor.R, maxColor.R, scale);
+            int green = InterpolateColorComponent(minColor.G, maxColor.G, scale);
+            int blue = InterpolateColorComponent(minColor.B, maxColor.B, scale);
 
             return Color.FromArgb(red, green, blue);
+        }
+
+        // Helper method for interpolating a color component
+        int InterpolateColorComponent(int minComponent, int maxComponent, double scale)
+        {
+            return (int)(minComponent + (maxComponent - minComponent) * scale);
         }
 
         // Method to convert human-readable file sizes to bytes
@@ -1271,8 +1407,6 @@ namespace MIDI_Splitter_Lite
 
     class ListViewItemComparer : IComparer
     {
-        private MainForm mainForm;
-
         public int SortColumn { get; set; }
         public SortOrder Order { get; set; }
 
