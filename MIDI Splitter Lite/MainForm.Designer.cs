@@ -88,7 +88,7 @@
             // splitToolStripMenuItem
             // 
             this.splitToolStripMenuItem.Name = "splitToolStripMenuItem";
-            this.splitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.splitToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.splitToolStripMenuItem.Text = "Split track(s)";
             this.splitToolStripMenuItem.Click += new System.EventHandler(this.splitToolStripMenuItem_Click);
             // 
@@ -96,31 +96,31 @@
             // 
             this.abortSplittingToolStripMenuItem.Enabled = false;
             this.abortSplittingToolStripMenuItem.Name = "abortSplittingToolStripMenuItem";
-            this.abortSplittingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.abortSplittingToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.abortSplittingToolStripMenuItem.Text = "Abort splitting";
             this.abortSplittingToolStripMenuItem.Click += new System.EventHandler(this.abortSplittingToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 6);
             // 
             // ReloadMidiButton
             // 
             this.ReloadMidiButton.Name = "ReloadMidiButton";
-            this.ReloadMidiButton.Size = new System.Drawing.Size(180, 22);
+            this.ReloadMidiButton.Size = new System.Drawing.Size(150, 22);
             this.ReloadMidiButton.Text = "Reload Midi";
             this.ReloadMidiButton.Click += new System.EventHandler(this.ReloadMidiButton_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(147, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -195,6 +195,7 @@
             this.MIDIListView.TabIndex = 5;
             this.MIDIListView.UseCompatibleStateImageBehavior = false;
             this.MIDIListView.View = System.Windows.Forms.View.Details;
+            this.MIDIListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.MIDIListView_ColumnClick);
             this.MIDIListView.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.MIDIListView_ColumnWidthChanging);
             this.MIDIListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.MIDIListView_ItemSelectionChanged);
             this.MIDIListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MIDIListView_KeyDown);

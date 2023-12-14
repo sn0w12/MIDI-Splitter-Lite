@@ -284,5 +284,29 @@ namespace MIDI_Splitter_Lite.Properties {
                 this["OldExport"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ManualColors {
+            get {
+                return ((bool)(this["ManualColors"]));
+            }
+            set {
+                this["ManualColors"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutomaticColors {
+            get {
+                return ((bool)(this["AutomaticColors"]));
+            }
+            set {
+                this["AutomaticColors"] = value;
+            }
+        }
     }
 }

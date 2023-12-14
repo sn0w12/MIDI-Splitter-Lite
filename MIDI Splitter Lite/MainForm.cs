@@ -1,6 +1,7 @@
 ﻿using Microsoft.WindowsAPICodePack.Taskbar;
 using MIDI_Splitter_Lite.Properties;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -17,6 +18,8 @@ namespace MIDI_Splitter_Lite
     {
         List<ushort> trackNumberList = new List<ushort>();
         List<string> trackNamesList = new List<string>();
+
+        private ListViewItemComparer lvwColumnSorter;
 
         private Size formOriginalSize;
         private Rectangle recLab1;
@@ -44,6 +47,9 @@ namespace MIDI_Splitter_Lite
         public MainForm()
         {
             InitializeComponent();
+
+            lvwColumnSorter = new ListViewItemComparer();
+            this.MIDIListView.ListViewItemSorter = lvwColumnSorter;
 
             this.Resize += MainForm_Resize;
             formOriginalSize = this.Size;
@@ -1122,13 +1128,75 @@ namespace MIDI_Splitter_Lite
 
         private void UpdateListViewColors()
         {
-            foreach (ListViewItem item in MIDIListView.Items)
+            if (Settings.Default.ManualColors)
             {
-                string instrumentName = item.SubItems[1].Text.ToLower();
-                Color rowColor = GetRowColorBasedOnInstrument(instrumentName);
-                item.BackColor = rowColor;
+                foreach (ListViewItem item in MIDIListView.Items)
+                {
+                    string instrumentName = item.SubItems[1].Text.ToLower();
+                    Color rowColor = GetRowColorBasedOnInstrument(instrumentName);
+                    item.BackColor = rowColor;
+                }
+            }
+            else if (Settings.Default.AutomaticColors)
+            {
+                // Step 1: Determine the range of file sizes
+                long minSize = long.MaxValue;
+                long maxSize = long.MinValue;
+
+                foreach (ListViewItem item in MIDIListView.Items)
+                {
+                    long size = ConvertSizeToBytes(item.SubItems[2].Text);
+                    if (size < minSize) minSize = size;
+                    if (size > maxSize) maxSize = size;
+                }
+
+
+                // Step 3: Apply the calculated color to each ListViewItem
+                foreach (ListViewItem item in MIDIListView.Items)
+                {
+                    long size = ConvertSizeToBytes(item.SubItems[2].Text);
+                    Color rowColor = GetGradientColor(size, minSize, maxSize);
+                    item.BackColor = rowColor;
+                }
             }
             AutoSizeColumnList(MIDIListView);
+        }
+
+        Color GetGradientColor(long fileSize, long minSize, long maxSize)
+        {
+            // Scale the fileSize between 0 and 1
+            double scale = (double)(fileSize - minSize) / (maxSize - minSize);
+
+            // Bright red to calm blue gradient
+            int red = (int)(255 * (scale));
+            int green = (int)(200 * (1 - scale));
+            int blue = (int)(255 * (1 - scale));
+
+            return Color.FromArgb(red, green, blue);
+        }
+
+        // Method to convert human-readable file sizes to bytes
+        public static long ConvertSizeToBytes(string sizeStr)
+        {
+            string[] sizeParts = sizeStr.Split(' ');
+            if (sizeParts.Length != 2)
+                return 0;
+
+            sizeParts[0].Replace(',', '.');
+            double sizeValue = double.Parse(sizeParts[0]);
+            string sizeUnit = sizeParts[1].ToUpper();
+
+            switch (sizeUnit)
+            {
+                case "KB":
+                    return (long)(sizeValue * 1024);
+                case "MB":
+                    return (long)(sizeValue * 1024 * 1024);
+                case "GB":
+                    return (long)(sizeValue * 1024 * 1024 * 1024);
+                default: // Assuming "B" for bytes
+                    return (long)sizeValue;
+            }
         }
 
         private void MIDIListView_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
@@ -1176,6 +1244,68 @@ namespace MIDI_Splitter_Lite
                 splitToolStripMenuItem.Text = "No track selected";
                 splitToolStripMenuItem.Enabled = false;
             }
+        }
+
+        private void MIDIListView_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            // Check if the clicked column is the same as the previously clicked column
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                else
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with the new order
+            MIDIListView.Sort();
+        }
+    }
+
+    class ListViewItemComparer : IComparer
+    {
+        private MainForm mainForm;
+
+        public int SortColumn { get; set; }
+        public SortOrder Order { get; set; }
+
+        public ListViewItemComparer()
+        {
+            SortColumn = 0;
+            Order = SortOrder.None;
+        }
+
+        public int Compare(object x, object y)
+        {
+            int returnVal;
+
+            if (SortColumn == 2) // Check if it's the third column
+            {
+                long sizeX = MainForm.ConvertSizeToBytes(((ListViewItem)x).SubItems[SortColumn].Text);
+                long sizeY = MainForm.ConvertSizeToBytes(((ListViewItem)y).SubItems[SortColumn].Text);
+                returnVal = sizeX.CompareTo(sizeY);
+            }
+            else if (double.TryParse(((ListViewItem)x).SubItems[SortColumn].Text, out double xVal) &&
+                     double.TryParse(((ListViewItem)y).SubItems[SortColumn].Text, out double yVal))
+            {
+                returnVal = xVal.CompareTo(yVal);
+            }
+            else
+            {
+                returnVal = String.Compare(((ListViewItem)x).SubItems[SortColumn].Text, ((ListViewItem)y).SubItems[SortColumn].Text);
+            }
+
+            if (Order == SortOrder.Descending)
+                returnVal *= -1;
+
+            return returnVal;
         }
     }
 }

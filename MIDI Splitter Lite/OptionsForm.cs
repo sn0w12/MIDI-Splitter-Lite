@@ -22,6 +22,8 @@ namespace MIDI_Splitter_Lite
             FilePrefixBox.Checked = Settings.Default.FilePrefixBox;
             RemoveTracksBox.Checked = Settings.Default.RemoveTracks;
             ExportSubBox.Checked = Settings.Default.ExportSub;
+            ManualColorBox.Checked = Settings.Default.ManualColors;
+            AutoColorBox.Checked = Settings.Default.AutomaticColors;
 
             MinBytesTextBox.Text = Settings.Default.MinBytes.ToString();
 
@@ -79,6 +81,8 @@ namespace MIDI_Splitter_Lite
             Settings.Default.FilePrefixBox = FilePrefixBox.Checked;
             Settings.Default.RemoveTracks = RemoveTracksBox.Checked;
             Settings.Default.ExportSub = ExportSubBox.Checked;
+            Settings.Default.ManualColors = ManualColorBox.Checked;
+            Settings.Default.AutomaticColors = AutoColorBox.Checked;
 
             Settings.Default.MinBytes = ConvertTextBoxTextToInt(MinBytesTextBox);
 
@@ -177,5 +181,17 @@ namespace MIDI_Splitter_Lite
             }
         }
 
+        private void ManualColorBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ManualColorBox.Checked && AutoColorBox.Checked)
+                AutoColorBox.CheckState = CheckState.Unchecked;
+
+        }
+
+        private void AutoColorBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ManualColorBox.Checked && AutoColorBox.Checked)
+                ManualColorBox.CheckState = CheckState.Unchecked;
+        }
     }
 }
