@@ -83,6 +83,7 @@ namespace MIDI_Splitter_Lite
             ToolTip toolTip1 = new ToolTip();
             ToolStripSeparator seperator = new ToolStripSeparator();
             ToolStripSeparator seperator2 = new ToolStripSeparator();
+            ToolStripSeparator seperator3 = new ToolStripSeparator();
             int insertIndex = 0;
 
             CheckBox copyFirstTrackCheckBox = CreateCheckBox("Copy First Track", Settings.Default.CopyFirstTrack);
@@ -138,7 +139,7 @@ namespace MIDI_Splitter_Lite
                 Settings.Default.ManualColors = ManualColorBox.Checked;
                 AutoColorBox.Checked = false;
                 Settings.Default.AutomaticColors = AutoColorBox.Checked;
-                RequestRestart();
+                UpdateListViewColors();
             };
             ToolStripControlHost ManualColorHost = new ToolStripControlHost(ManualColorBox);
             optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, ManualColorHost);
@@ -148,25 +149,17 @@ namespace MIDI_Splitter_Lite
                 Settings.Default.AutomaticColors = AutoColorBox.Checked;
                 ManualColorBox.Checked = false;
                 Settings.Default.ManualColors = ManualColorBox.Checked;
-                RequestRestart();
+                UpdateListViewColors();
             };
             ToolStripControlHost AutoColorHost = new ToolStripControlHost(AutoColorBox);
             optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, AutoColorHost);
 
-            Button AdvancedOptionsButton = new Button();
+            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, seperator3);
+
+            ToolStripMenuItem AdvancedOptionsButton = new ToolStripMenuItem();
             AdvancedOptionsButton.Text = "Advanced Options";
             AdvancedOptionsButton.Click += optionsToolStripMenuItem_Click;
-            AdvancedOptionsButton.AutoSize = false;
-            AdvancedOptionsButton.Width = (int)(optionsToolStripMenuItem.Width * 2.5);
-            AdvancedOptionsButton.Padding = new Padding(0);
-            AdvancedOptionsButton.Margin = new Padding(0);
-
-            ToolStripControlHost AdvancedOptionsHost = new ToolStripControlHost(AdvancedOptionsButton);
-            AdvancedOptionsHost.AutoSize = false;
-            AdvancedOptionsHost.Padding = new Padding(0);
-            AdvancedOptionsHost.Margin = new Padding(0);
-
-            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, AdvancedOptionsHost);
+            optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, AdvancedOptionsButton);
 
             toolTip1.SetToolTip(copyFirstTrackCheckBox, "Copies the first track in the list to the selected tracks to be exported.\nExported MIDIs will contain two tracks.");
             toolTip1.SetToolTip(ReadTrackNamesBox, "Reads the name of each track from the MIDI file and displays it in the list.\nIf multiple names exists for a given track, the latest one will be shown.");

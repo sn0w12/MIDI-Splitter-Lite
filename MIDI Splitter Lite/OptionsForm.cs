@@ -44,6 +44,8 @@ namespace MIDI_Splitter_Lite
             updateTextBox(color5, colorTextBox5, Settings.Default.ColorText5);
             updateTextBox(color6, colorTextBox6, Settings.Default.ColorText6);
             updateTextBox(color7, colorTextBox7, Settings.Default.ColorText7);
+
+            this.ActiveControl = label1;
         }
 
         private void updateTextBox(string color, TextBox textbox, StringCollection stringCollection)
