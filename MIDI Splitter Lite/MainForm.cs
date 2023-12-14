@@ -1275,6 +1275,14 @@ namespace MIDI_Splitter_Lite
                     item.ForeColor = IsColorDark(rowColor) ? Color.White : Color.Black;
                 }
             }
+            else
+            {
+                foreach (ListViewItem item in MIDIListView.Items)
+                {
+                    item.BackColor = Color.White;
+                    item.ForeColor = Color.Black;
+                }
+            }
             AutoSizeColumnList(MIDIListView);
         }
 
