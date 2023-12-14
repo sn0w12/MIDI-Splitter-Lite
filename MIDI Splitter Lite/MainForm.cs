@@ -301,13 +301,7 @@ namespace MIDI_Splitter_Lite
 
         private DialogResult ConfirmationPopup(String message, String title, Boolean bypass = false)
         {
-            if (bypass == true)
-            {
-                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                DialogResult result = MessageBox.Show(message, title, buttons);
-                return result;
-            }
-            else if (MIDIListView.SelectedItems.Count > 0)
+            if (bypass || (MIDIListView != null && MIDIListView.SelectedItems.Count > 0))
             {
                 MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                 DialogResult result = MessageBox.Show(message, title, buttons);
