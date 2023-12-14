@@ -292,9 +292,9 @@ namespace MIDI_Splitter_Lite
             MIDIListView.ContextMenuStrip = listContextMenu;
         }
 
-        private DialogResult ConfirmationPopup(String message, String title)
+        private DialogResult ConfirmationPopup(String message, String title, Boolean bypass = false)
         {
-            if (MIDIListView.SelectedItems.Count > 0)
+            if (MIDIListView.SelectedItems.Count > 0 || bypass == true)
             {
                 MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                 DialogResult result = MessageBox.Show(message, title, buttons);
@@ -1167,7 +1167,10 @@ namespace MIDI_Splitter_Lite
             }
             else
             {
-                Application.Exit();
+                if (ConfirmationPopup("Are you sure you want to exit?", "Exit", true) == DialogResult.Yes)
+                {    
+                    Application.Exit();
+                };
             }
         }
 
