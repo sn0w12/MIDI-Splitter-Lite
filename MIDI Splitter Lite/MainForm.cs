@@ -156,6 +156,8 @@ namespace MIDI_Splitter_Lite
             ToolStripMenuItem exportItem = new ToolStripMenuItem($"Export track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}");
             ToolStripMenuItem editItem = new ToolStripMenuItem("Edit name");
             ToolStripMenuItem removeItem = new ToolStripMenuItem($"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}");
+            ToolStripMenuItem selectAllItems = new ToolStripMenuItem("Select all tracks");
+            ToolStripMenuItem deselectAllItems = new ToolStripMenuItem("Deselect all tracks");
 
             ToolStripMenuItem reloadMidi = new ToolStripMenuItem("Reload midi");
 
@@ -163,10 +165,15 @@ namespace MIDI_Splitter_Lite
             editItem.Click += EditItem_Click;
             removeItem.Click += (sender, e) => { if (ConfirmationPopup($"Are you sure you want to delete the track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}?", $"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}") == DialogResult.Yes) { for (int i = MIDIListView.SelectedItems.Count - 1; i >= 0; i--) MIDIListView.Items.Remove(MIDIListView.SelectedItems[i]); } };
             reloadMidi.Click += (sender, e) => { if (ConfirmationPopup("Are you sure you want to reload the midi file, this will revert any changes you have made", "Reload midi") == DialogResult.Yes) { ReloadMidiButton_Click(sender, e); } };
+            selectAllItems.Click += (sender, e) => SelectAllItems(true);
+            deselectAllItems.Click += (sender, e) => SelectAllItems(false);
 
             listContextMenu.Items.Add(exportItem);
             if (MIDIListView.SelectedItems.Count == 1) { listContextMenu.Items.Add(editItem); }
             listContextMenu.Items.Add(removeItem);
+            listContextMenu.Items.Add("-");
+            if (MIDIListView.SelectedItems.Count != MIDIListView.Items.Count) { listContextMenu.Items.Add(selectAllItems); }
+            if (MIDIListView.SelectedItems.Count > 0) { listContextMenu.Items.Add(deselectAllItems); }
             listContextMenu.Items.Add("-");
             listContextMenu.Items.Add(reloadMidi);
             MIDIListView.ContextMenuStrip = listContextMenu;
@@ -192,6 +199,17 @@ namespace MIDI_Splitter_Lite
                 {
                     item.Selected = true;
                     listContextMenu.Show(Cursor.Position);
+                }
+            }
+        }
+
+        private void SelectAllItems(Boolean select)
+        {
+            if (MIDIListView.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem item in MIDIListView.Items)
+                {
+                    item.Selected = select;
                 }
             }
         }
@@ -646,14 +664,24 @@ namespace MIDI_Splitter_Lite
         {
             if (e.KeyCode == Keys.A && e.Control)
             {
-                foreach (ListViewItem item in MIDIListView.Items)
-                {
-                    item.Selected = true;
-                }
+                SelectAllItems(true);
+            }
+            if (e.KeyCode == Keys.D && e.Control)
+            {
+                SelectAllItems(false);
             }
             if (e.KeyCode == Keys.S && e.Control)
             {
                 ExportTracks();
+            }
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (ConfirmationPopup($"Are you sure you want to delete the track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}?", $"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}") == DialogResult.Yes) 
+                { 
+                    for (int i = MIDIListView.SelectedItems.Count - 1; i >= 0; i--) {
+                        MIDIListView.Items.Remove(MIDIListView.SelectedItems[i]);
+                    }
+                };
             }
         }
 
@@ -687,7 +715,8 @@ namespace MIDI_Splitter_Lite
                     {
                         Directory.CreateDirectory(exportPath);
                     }
-                    Settings.Default.OldExport = ExportPathBox.Text;
+                    if (Settings.Default.OldExport != null)
+                        Settings.Default.OldExport = ExportPathBox.Text;
                     ExportPathBox.Text = exportPath;
                 }
                 foreach (ListViewItem item in MIDIListView.SelectedItems)
