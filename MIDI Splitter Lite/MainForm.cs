@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -46,6 +47,12 @@ namespace MIDI_Splitter_Lite
 
         public MainForm()
         {
+            if (Debugger.IsAttached)
+            {
+                if (ConfirmationPopup("Do you want to reset your settings?", "Warning", true) == DialogResult.Yes)
+                    Settings.Default.Reset();
+            }
+
             InitializeComponent();
 
             InitializeOptionsStripMenu();
@@ -294,7 +301,13 @@ namespace MIDI_Splitter_Lite
 
         private DialogResult ConfirmationPopup(String message, String title, Boolean bypass = false)
         {
-            if (MIDIListView.SelectedItems.Count > 0 || bypass == true)
+            if (bypass == true)
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result = MessageBox.Show(message, title, buttons);
+                return result;
+            }
+            else if (MIDIListView.SelectedItems.Count > 0)
             {
                 MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                 DialogResult result = MessageBox.Show(message, title, buttons);
