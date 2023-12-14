@@ -67,8 +67,6 @@ namespace MIDI_Splitter_Lite
             CopyStringCollectionToStringArray(Settings.Default.ColorText7, instruments7);
 
             ExportPathBox.Text = Settings.Default.ExportPath;
-
-            SetupListViewContextMenu();
         }
 
         private void resize_Control(Control c, Rectangle r)
@@ -155,11 +153,34 @@ namespace MIDI_Splitter_Lite
         private void SetupListViewContextMenu()
         {
             listContextMenu = new ContextMenuStrip();
+            ToolStripMenuItem exportItem = new ToolStripMenuItem($"Export track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}");
             ToolStripMenuItem editItem = new ToolStripMenuItem("Edit name");
+            ToolStripMenuItem removeItem = new ToolStripMenuItem($"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}");
 
+            ToolStripMenuItem reloadMidi = new ToolStripMenuItem("Reload midi");
+
+            exportItem.Click += ExportItem_Click;
             editItem.Click += EditItem_Click;
-            listContextMenu.Items.Add(editItem);
+            removeItem.Click += (sender, e) => { if (ConfirmationPopup($"Are you sure you want to delete the track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}?", $"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}") == DialogResult.Yes) { for (int i = MIDIListView.SelectedItems.Count - 1; i >= 0; i--) MIDIListView.Items.Remove(MIDIListView.SelectedItems[i]); } };
+            reloadMidi.Click += (sender, e) => { if (ConfirmationPopup("Are you sure you want to reload the midi file, this will revert any changes you have made", "Reload midi") == DialogResult.Yes) { ReloadMidiButton_Click(sender, e); } };
+
+            listContextMenu.Items.Add(exportItem);
+            if (MIDIListView.SelectedItems.Count == 1) { listContextMenu.Items.Add(editItem); }
+            listContextMenu.Items.Add(removeItem);
+            listContextMenu.Items.Add("-");
+            listContextMenu.Items.Add(reloadMidi);
             MIDIListView.ContextMenuStrip = listContextMenu;
+        }
+
+        private DialogResult ConfirmationPopup(String message, String title)
+        {
+            if (MIDIListView.SelectedItems.Count > 0)
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result = MessageBox.Show(message, title, buttons);
+                return result;
+            }
+            return DialogResult.No;
         }
 
         private void MIDIListView_MouseUp(object sender, MouseEventArgs e)
@@ -172,6 +193,14 @@ namespace MIDI_Splitter_Lite
                     item.Selected = true;
                     listContextMenu.Show(Cursor.Position);
                 }
+            }
+        }
+
+        private void ExportItem_Click(object sender, EventArgs e)
+        {
+            if (MIDIListView.SelectedItems.Count > 0)
+            {
+                ExportTracks();
             }
         }
 
@@ -649,6 +678,18 @@ namespace MIDI_Splitter_Lite
             }
             else
             {
+                string exportPath = ExportPathBox.Text;
+                if (Settings.Default.ExportSub)
+                {
+                    string midiFileName = Path.GetFileNameWithoutExtension(MIDIPathBox.Text);
+                    exportPath = Path.Combine(exportPath, midiFileName);
+                    if (!Directory.Exists(exportPath))
+                    {
+                        Directory.CreateDirectory(exportPath);
+                    }
+                    Settings.Default.OldExport = ExportPathBox.Text;
+                    ExportPathBox.Text = exportPath;
+                }
                 foreach (ListViewItem item in MIDIListView.SelectedItems)
                 {
                     trackNumberList.Add(Convert.ToUInt16(item.SubItems[0].Text));
@@ -943,6 +984,7 @@ namespace MIDI_Splitter_Lite
                 MessageBox.Show(this, "Successfully split " + goal.ToString() + " track(s).", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
+            ExportPathBox.Text = Settings.Default.OldExport;
             goal = 0;
         }
 
@@ -1056,5 +1098,10 @@ namespace MIDI_Splitter_Lite
             RequestRestart();
         }
 
+        private void MIDIListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            SetupListViewContextMenu();
+            splitToolStripMenuItem.Text = $"Split track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}";
+        }
     }
 }

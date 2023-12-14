@@ -272,5 +272,17 @@ namespace MIDI_Splitter_Lite.Properties {
                 this["ExportSub"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OldExport {
+            get {
+                return ((string)(this["OldExport"]));
+            }
+            set {
+                this["OldExport"] = value;
+            }
+        }
     }
 }
