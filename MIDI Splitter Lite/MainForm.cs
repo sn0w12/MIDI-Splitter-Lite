@@ -67,6 +67,7 @@ namespace MIDI_Splitter_Lite
             CopyStringCollectionToStringArray(Settings.Default.ColorText7, instruments7);
 
             ExportPathBox.Text = Settings.Default.ExportPath;
+            UpdateSplitText();
         }
 
         private void resize_Control(Control c, Rectangle r)
@@ -1067,16 +1068,23 @@ namespace MIDI_Splitter_Lite
 
         private Color GetRowColorBasedOnInstrument(string instrumentName)
         {
-            var categories = new Dictionary<Color, string[]>()
+            var categories = new Dictionary<Color, string[]>();
+
+            AddToCategories(Settings.Default.Color1, instruments1);
+            AddToCategories(Settings.Default.Color2, instruments2);
+            AddToCategories(Settings.Default.Color3, instruments3);
+            AddToCategories(Settings.Default.Color4, instruments4);
+            AddToCategories(Settings.Default.Color5, instruments5);
+            AddToCategories(Settings.Default.Color6, instruments6);
+            AddToCategories(Settings.Default.Color7, instruments7);
+
+            void AddToCategories(Color color, string[] instruments)
             {
-                { Settings.Default.Color1, instruments1 },
-                { Settings.Default.Color2, instruments2 },
-                { Settings.Default.Color3, instruments3 },
-                { Settings.Default.Color4, instruments4 },
-                { Settings.Default.Color5, instruments5 },
-                { Settings.Default.Color6, instruments6 },
-                { Settings.Default.Color7, instruments7 }
-            };
+                if (color != Color.Empty && !categories.ContainsKey(color))
+                {
+                    categories.Add(color, instruments);
+                }
+            }
 
             var bestMatch = (Color: Color.White, Length: 0);
 
@@ -1130,7 +1138,26 @@ namespace MIDI_Splitter_Lite
         private void MIDIListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             SetupListViewContextMenu();
-            splitToolStripMenuItem.Text = $"Split track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}";
+            UpdateSplitText();
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateSplitText();
+        }
+
+        private void UpdateSplitText()
+        {
+            if (MIDIListView.SelectedItems.Count > 0)
+            {
+                splitToolStripMenuItem.Text = $"Split track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}";
+                splitToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                splitToolStripMenuItem.Text = "No track selected";
+                splitToolStripMenuItem.Enabled = false;
+            }
         }
     }
 }
