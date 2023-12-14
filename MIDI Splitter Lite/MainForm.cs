@@ -691,6 +691,11 @@ namespace MIDI_Splitter_Lite
             ExportTracks();
         }
 
+        public bool IsDirectoryEmpty(string path)
+        {
+            return !Directory.EnumerateFileSystemEntries(path).Any();
+        }
+
         private void ExportTracks()
         {
             if (string.IsNullOrEmpty(MIDIPathBox.Text) || !File.Exists(MIDIPathBox.Text))
@@ -712,10 +717,23 @@ namespace MIDI_Splitter_Lite
                 {
                     string midiFileName = Path.GetFileNameWithoutExtension(MIDIPathBox.Text);
                     exportPath = Path.Combine(exportPath, midiFileName);
-                    if (!Directory.Exists(exportPath))
+
+                    int folderSuffix = 1;
+                    string newExportPath = exportPath;
+
+                    while (Directory.Exists(newExportPath) && !IsDirectoryEmpty(newExportPath))
                     {
-                        Directory.CreateDirectory(exportPath);
+                        folderSuffix++;
+                        newExportPath = $"{exportPath}_{folderSuffix}";
                     }
+
+                    if (!Directory.Exists(newExportPath))
+                    {
+                        Directory.CreateDirectory(newExportPath);
+                    }
+
+                    exportPath = newExportPath;
+
                     if (Settings.Default.OldExport != null)
                         Settings.Default.OldExport = ExportPathBox.Text;
                     ExportPathBox.Text = exportPath;
