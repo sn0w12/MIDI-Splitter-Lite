@@ -94,7 +94,11 @@ namespace MIDI_Splitter_Lite
             int insertIndex = 0;
 
             CheckBox copyFirstTrackCheckBox = CreateCheckBox("Copy First Track", Settings.Default.CopyFirstTrack);
-            copyFirstTrackCheckBox.Click += (sender, e) => Settings.Default.CopyFirstTrack = copyFirstTrackCheckBox.Checked;
+            copyFirstTrackCheckBox.Click += (sender, e) =>
+            {
+                Settings.Default.CopyFirstTrack = copyFirstTrackCheckBox.Checked;
+                RequestRestart();
+            };
             ToolStripControlHost copyFirstTrackHost = new ToolStripControlHost(copyFirstTrackCheckBox);
             optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, copyFirstTrackHost);
 
@@ -121,7 +125,11 @@ namespace MIDI_Splitter_Lite
             optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, ReadTrackInstrumentHost);
 
             CheckBox RemoveTracksBox = CreateCheckBox("Remove Empty tracks", Settings.Default.RemoveTracks);
-            RemoveTracksBox.Click += (sender, e) => Settings.Default.RemoveTracks = RemoveTracksBox.Checked;
+            RemoveTracksBox.Click += (sender, e) =>
+            {
+                Settings.Default.RemoveTracks = RemoveTracksBox.Checked;
+                RequestRestart();
+            };
             ToolStripControlHost RemoveTracksHost = new ToolStripControlHost(RemoveTracksBox);
             optionsToolStripMenuItem.DropDownItems.Insert(insertIndex++, RemoveTracksHost);
 
