@@ -578,7 +578,7 @@ namespace MIDI_Splitter_Lite
         private string BytesToReadableFormat(int bytes)
         {
             double size = bytes;
-            string[] units = { "B", "KB", "MB", "GB", "TB" }; // You can extend this array with more units if needed
+            string[] units = { "B", "KB", "MB", "GB", "TB" };
             int unitIndex = 0;
 
             while (size >= 1024 && unitIndex < units.Length - 1)
@@ -634,7 +634,7 @@ namespace MIDI_Splitter_Lite
                 return instruments[programNumber];
             }
 
-            return "Unknown"; // Default case
+            return "Unknown";
         }
 
 
