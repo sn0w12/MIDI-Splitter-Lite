@@ -54,6 +54,7 @@
             this.OpenMIDIDialog = new System.Windows.Forms.OpenFileDialog();
             this.ExportBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.openMidiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,6 +78,7 @@
             this.splitToolStripMenuItem,
             this.abortSplittingToolStripMenuItem,
             this.toolStripSeparator3,
+            this.openMidiToolStripMenuItem,
             this.ReloadMidiButton,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
@@ -88,7 +90,7 @@
             // splitToolStripMenuItem
             // 
             this.splitToolStripMenuItem.Name = "splitToolStripMenuItem";
-            this.splitToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.splitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.splitToolStripMenuItem.Text = "Split track(s)";
             this.splitToolStripMenuItem.Click += new System.EventHandler(this.splitToolStripMenuItem_Click);
             // 
@@ -96,31 +98,31 @@
             // 
             this.abortSplittingToolStripMenuItem.Enabled = false;
             this.abortSplittingToolStripMenuItem.Name = "abortSplittingToolStripMenuItem";
-            this.abortSplittingToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.abortSplittingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.abortSplittingToolStripMenuItem.Text = "Abort splitting";
             this.abortSplittingToolStripMenuItem.Click += new System.EventHandler(this.abortSplittingToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // ReloadMidiButton
             // 
             this.ReloadMidiButton.Name = "ReloadMidiButton";
-            this.ReloadMidiButton.Size = new System.Drawing.Size(150, 22);
+            this.ReloadMidiButton.Size = new System.Drawing.Size(180, 22);
             this.ReloadMidiButton.Text = "Reload Midi";
             this.ReloadMidiButton.Click += new System.EventHandler(this.ReloadMidiButton_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -254,6 +256,13 @@
             this.backgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker_ProgressChanged);
             this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
             // 
+            // openMidiToolStripMenuItem
+            // 
+            this.openMidiToolStripMenuItem.Name = "openMidiToolStripMenuItem";
+            this.openMidiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openMidiToolStripMenuItem.Text = "Open Midi";
+            this.openMidiToolStripMenuItem.Click += new System.EventHandler(this.openMidiToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -313,6 +322,7 @@
         private System.Windows.Forms.ToolStripMenuItem splitToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem ReloadMidiButton;
+        private System.Windows.Forms.ToolStripMenuItem openMidiToolStripMenuItem;
     }
 }
 

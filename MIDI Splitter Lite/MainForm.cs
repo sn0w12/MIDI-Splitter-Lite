@@ -282,7 +282,7 @@ namespace MIDI_Splitter_Lite
         {
             listContextMenu = new ContextMenuStrip();
             ToolStripMenuItem exportItem = new ToolStripMenuItem($"Export track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}");
-            ToolStripMenuItem editItem = new ToolStripMenuItem("Edit name");
+            ToolStripMenuItem editItem = new ToolStripMenuItem($"Edit name{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}");
             ToolStripMenuItem removeItem = new ToolStripMenuItem($"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}");
             ToolStripMenuItem selectAllItems = new ToolStripMenuItem("Select all tracks");
             ToolStripMenuItem deselectAllItems = new ToolStripMenuItem("Deselect all tracks");
@@ -292,12 +292,12 @@ namespace MIDI_Splitter_Lite
             exportItem.Click += ExportItem_Click;
             editItem.Click += EditItem_Click;
             removeItem.Click += (sender, e) => { if (ConfirmationPopup($"Are you sure you want to delete the track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}?", $"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}") == DialogResult.Yes) { for (int i = MIDIListView.SelectedItems.Count - 1; i >= 0; i--) MIDIListView.Items.Remove(MIDIListView.SelectedItems[i]); } };
-            reloadMidi.Click += (sender, e) => { if (ConfirmationPopup("Are you sure you want to reload the midi file, this will revert any changes you have made", "Reload midi") == DialogResult.Yes) { ReloadMidiButton_Click(sender, e); } };
+            reloadMidi.Click += (sender, e) => { if (ConfirmationPopup("Are you sure you want to reload the MIDI file, this will revert any changes you have made", "Reload MIDI") == DialogResult.Yes) { ReloadMidiButton_Click(sender, e); } };
             selectAllItems.Click += (sender, e) => SelectAllItems(true);
             deselectAllItems.Click += (sender, e) => SelectAllItems(false);
 
             listContextMenu.Items.Add(exportItem);
-            if (MIDIListView.SelectedItems.Count == 1) { listContextMenu.Items.Add(editItem); }
+            listContextMenu.Items.Add(editItem);
             listContextMenu.Items.Add(removeItem);
             listContextMenu.Items.Add("-");
             if (MIDIListView.SelectedItems.Count != MIDIListView.Items.Count) { listContextMenu.Items.Add(selectAllItems); }
@@ -362,11 +362,26 @@ namespace MIDI_Splitter_Lite
                     Text = item.SubItems[1].Text,
                     Parent = MIDIListView
                 };
-                editBox.Leave += (s, args) => FinishEditing(item, editBox);
+                editBox.Leave += (s, args) =>
+                {
+                    foreach (ListViewItem item2 in MIDIListView.SelectedItems)
+                    {
+                        FinishEditing(item2, editBox);
+                    }
+                    editBox.Dispose();
+                    UpdateListViewColors();
+                };
                 editBox.KeyPress += (s, args) =>
                 {
                     if (args.KeyChar == (char)Keys.Enter)
-                        FinishEditing(item, editBox);
+                    {
+                        foreach (ListViewItem item2 in MIDIListView.SelectedItems)
+                        {
+                            FinishEditing(item2, editBox);
+                        }
+                        editBox.Dispose();
+                        UpdateListViewColors();
+                    }
                 };
                 MIDIListView.Controls.Add(editBox);
                 editBox.Focus();
@@ -376,8 +391,6 @@ namespace MIDI_Splitter_Lite
         private void FinishEditing(ListViewItem item, TextBox editBox)
         {
             item.SubItems[1].Text = editBox.Text;
-            editBox.Dispose();
-            UpdateListViewColors();
         }
 
         private void LoadMIDIFile(string filePath)
@@ -1373,7 +1386,10 @@ namespace MIDI_Splitter_Lite
 
         private void ReloadMidiButton_Click(object sender, EventArgs e)
         {
-            RequestRestart();
+            if (ConfirmationPopup("Are you sure you want to reload the MIDI file, this will revert any changes you have made", "Reload MIDI", true) == DialogResult.Yes)
+            {
+                RequestRestart();
+            }
         }
 
         private void MIDIListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
@@ -1421,6 +1437,14 @@ namespace MIDI_Splitter_Lite
 
             // Perform the sort with the new order
             MIDIListView.Sort();
+        }
+
+        private void openMidiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (OpenMIDIDialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadMIDIFile(OpenMIDIDialog.FileName);
+            }
         }
     }
 
