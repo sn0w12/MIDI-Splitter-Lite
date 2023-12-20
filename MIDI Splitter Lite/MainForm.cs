@@ -292,7 +292,7 @@ namespace MIDI_Splitter_Lite
             exportItem.Click += ExportItem_Click;
             editItem.Click += EditItem_Click;
             removeItem.Click += (sender, e) => { if (ConfirmationPopup($"Are you sure you want to delete the track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}?", $"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}") == DialogResult.Yes) { for (int i = MIDIListView.SelectedItems.Count - 1; i >= 0; i--) MIDIListView.Items.Remove(MIDIListView.SelectedItems[i]); } };
-            reloadMidi.Click += (sender, e) => { if (ConfirmationPopup("Are you sure you want to reload the MIDI file, this will revert any changes you have made", "Reload MIDI") == DialogResult.Yes) { ReloadMidiButton_Click(sender, e); } };
+            reloadMidi.Click += (sender, e) => ReloadMidiButton_Click(sender, e);
             selectAllItems.Click += (sender, e) => SelectAllItems(true);
             deselectAllItems.Click += (sender, e) => SelectAllItems(false);
 
@@ -354,6 +354,8 @@ namespace MIDI_Splitter_Lite
         {
             if (MIDIListView.SelectedItems.Count > 0)
             {
+                bool isEditingFinished = false;
+
                 ListViewItem item = MIDIListView.SelectedItems[0];
                 Rectangle rect = item.SubItems[1].Bounds;
                 TextBox editBox = new TextBox
@@ -362,11 +364,28 @@ namespace MIDI_Splitter_Lite
                     Text = item.SubItems[1].Text,
                     Parent = MIDIListView
                 };
-                editBox.Leave += (s, args) => FinishEditing(editBox);
                 editBox.KeyPress += (s, args) =>
                 {
                     if (args.KeyChar == (char)Keys.Enter)
+                    {
+                        isEditingFinished = true;
                         FinishEditing(editBox);
+                    }
+                    if (args.KeyChar == (char)Keys.Escape)
+                    {
+                        isEditingFinished = true;
+                        editBox.Dispose();
+                    }
+                };
+                editBox.Leave += (s, args) =>
+                {
+                    if (!isEditingFinished)
+                    {
+                        if (ConfirmationPopup($"Do you want to save the name{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}?", "Save") == DialogResult.Yes)
+                            FinishEditing(editBox);
+                        else
+                            editBox.Dispose();
+                    }
                 };
                 MIDIListView.Controls.Add(editBox);
                 editBox.Focus();
