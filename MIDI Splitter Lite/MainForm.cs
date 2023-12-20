@@ -362,35 +362,25 @@ namespace MIDI_Splitter_Lite
                     Text = item.SubItems[1].Text,
                     Parent = MIDIListView
                 };
-                editBox.Leave += (s, args) =>
-                {
-                    foreach (ListViewItem item2 in MIDIListView.SelectedItems)
-                    {
-                        FinishEditing(item2, editBox);
-                    }
-                    editBox.Dispose();
-                    UpdateListViewColors();
-                };
+                editBox.Leave += (s, args) => FinishEditing(editBox);
                 editBox.KeyPress += (s, args) =>
                 {
                     if (args.KeyChar == (char)Keys.Enter)
-                    {
-                        foreach (ListViewItem item2 in MIDIListView.SelectedItems)
-                        {
-                            FinishEditing(item2, editBox);
-                        }
-                        editBox.Dispose();
-                        UpdateListViewColors();
-                    }
+                        FinishEditing(editBox);
                 };
                 MIDIListView.Controls.Add(editBox);
                 editBox.Focus();
             }
         }
 
-        private void FinishEditing(ListViewItem item, TextBox editBox)
+        private void FinishEditing(TextBox editBox)
         {
-            item.SubItems[1].Text = editBox.Text;
+            foreach (ListViewItem item in MIDIListView.SelectedItems)
+            {
+                item.SubItems[1].Text = editBox.Text;
+            }
+            editBox.Dispose();
+            UpdateListViewColors();
         }
 
         private void LoadMIDIFile(string filePath)
