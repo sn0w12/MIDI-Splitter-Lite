@@ -285,7 +285,7 @@ namespace MIDI_Splitter_Lite
             ToolStripMenuItem editItem = new ToolStripMenuItem($"Edit name{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}");
             ToolStripMenuItem removeItem = new ToolStripMenuItem($"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}");
             ToolStripMenuItem selectAllItems = new ToolStripMenuItem("Select all tracks");
-            ToolStripMenuItem deselectAllItems = new ToolStripMenuItem("Deselect all tracks");
+            ToolStripMenuItem deselectAllItems = new ToolStripMenuItem($"Deselect {(MIDIListView.SelectedItems.Count == 1 ? "track" : "all tracks")}");
 
             ToolStripMenuItem reloadMidi = new ToolStripMenuItem("Reload midi");
 
