@@ -75,7 +75,6 @@
             // 
             // colorTextBox4
             // 
-            this.colorTextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.colorTextBox4.Location = new System.Drawing.Point(9, 319);
             this.colorTextBox4.Name = "colorTextBox4";
             this.colorTextBox4.Size = new System.Drawing.Size(100, 20);
@@ -101,7 +100,6 @@
             // 
             // colorTextBox1
             // 
-            this.colorTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.colorTextBox1.Location = new System.Drawing.Point(9, 202);
             this.colorTextBox1.Name = "colorTextBox1";
             this.colorTextBox1.Size = new System.Drawing.Size(100, 20);
@@ -118,7 +116,6 @@
             // 
             // colorTextBox7
             // 
-            this.colorTextBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.colorTextBox7.Location = new System.Drawing.Point(9, 436);
             this.colorTextBox7.Name = "colorTextBox7";
             this.colorTextBox7.Size = new System.Drawing.Size(100, 20);
@@ -135,7 +132,6 @@
             // 
             // colorTextBox2
             // 
-            this.colorTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.colorTextBox2.Location = new System.Drawing.Point(9, 241);
             this.colorTextBox2.Name = "colorTextBox2";
             this.colorTextBox2.Size = new System.Drawing.Size(100, 20);
@@ -152,7 +148,6 @@
             // 
             // colorTextBox5
             // 
-            this.colorTextBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.colorTextBox5.Location = new System.Drawing.Point(9, 358);
             this.colorTextBox5.Name = "colorTextBox5";
             this.colorTextBox5.Size = new System.Drawing.Size(100, 20);
@@ -169,7 +164,6 @@
             // 
             // colorTextBox3
             // 
-            this.colorTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.colorTextBox3.Location = new System.Drawing.Point(9, 280);
             this.colorTextBox3.Name = "colorTextBox3";
             this.colorTextBox3.Size = new System.Drawing.Size(100, 20);
@@ -186,7 +180,6 @@
             // 
             // colorTextBox6
             // 
-            this.colorTextBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.colorTextBox6.Location = new System.Drawing.Point(9, 397);
             this.colorTextBox6.Name = "colorTextBox6";
             this.colorTextBox6.Size = new System.Drawing.Size(100, 20);
@@ -264,7 +257,6 @@
             // 
             // MinBytesTextBox
             // 
-            this.MinBytesTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.MinBytesTextBox.Location = new System.Drawing.Point(9, 45);
             this.MinBytesTextBox.Name = "MinBytesTextBox";
             this.MinBytesTextBox.Size = new System.Drawing.Size(100, 20);
@@ -340,7 +332,6 @@
             // 
             // colorTextBoxMin
             // 
-            this.colorTextBoxMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.colorTextBoxMin.Enabled = false;
             this.colorTextBoxMin.Location = new System.Drawing.Point(9, 143);
             this.colorTextBoxMin.Name = "colorTextBoxMin";
@@ -358,7 +349,6 @@
             // 
             // colorTextBoxMax
             // 
-            this.colorTextBoxMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.colorTextBoxMax.Enabled = false;
             this.colorTextBoxMax.Location = new System.Drawing.Point(9, 104);
             this.colorTextBoxMax.Name = "colorTextBoxMax";
