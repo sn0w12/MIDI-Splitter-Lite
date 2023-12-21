@@ -213,36 +213,25 @@ namespace MIDI_Splitter_Lite
 
         private void AutoSizeColumnList(ListView listView)
         {
-            // Prevents flickering
             listView.BeginUpdate();
-
-            // Auto size columns using header
             listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
-            // Store the current width of all columns based on header
             int[] headerWidths = new int[listView.Columns.Count];
             for (int i = 0; i < listView.Columns.Count; i++)
             {
                 headerWidths[i] = listView.Columns[i].Width;
             }
 
-            // Auto size columns using data
             listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 
-            // Find the maximum width for the second column
-            int secondColumnMaxWidth = ((int)(this.Width * 0.6));
-
-            // Set the width of each column, ensuring they do not exceed the width of the second column
             for (int i = 0; i < listView.Columns.Count; i++)
             {
-                if (i == 1) // This is the second column
-                {
-                    listView.Columns[i].Width = secondColumnMaxWidth;
-                }
-                else // For all other columns
-                {
+                if (i == 1)
+                    listView.Columns[i].Width = ((int)(this.Width * 0.595));
+                else if (i == 0)
                     listView.Columns[i].Width = ((int)(this.Width * 0.13));
-                }
+                else
+                    listView.Columns[i].Width = ((int)(this.Width * 0.15));
             }
 
             listView.EndUpdate();
@@ -286,7 +275,6 @@ namespace MIDI_Splitter_Lite
             ToolStripMenuItem removeItem = new ToolStripMenuItem($"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}");
             ToolStripMenuItem selectAllItems = new ToolStripMenuItem("Select all tracks");
             ToolStripMenuItem deselectAllItems = new ToolStripMenuItem($"Deselect {(MIDIListView.SelectedItems.Count == 1 ? "track" : "all tracks")}");
-
             ToolStripMenuItem reloadMidi = new ToolStripMenuItem("Reload midi");
 
             exportItem.Click += ExportItem_Click;
@@ -1446,6 +1434,7 @@ namespace MIDI_Splitter_Lite
 
             // Perform the sort with the new order
             MIDIListView.Sort();
+            lvwColumnSorter.UpdateColumnHeader(MIDIListView);
         }
 
         private void openMidiToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1492,6 +1481,22 @@ namespace MIDI_Splitter_Lite
                 returnVal *= -1;
 
             return returnVal;
+        }
+
+        public void UpdateColumnHeader(ListView listView)
+        {
+            foreach (ColumnHeader column in listView.Columns)
+            {
+                if (column.Index == SortColumn)
+                {
+                    column.Text = column.Text.TrimEnd(' ', '↑', '↓')
+                                + (Order == SortOrder.Ascending ? " ↑" : Order == SortOrder.Descending ? " ↓" : "");
+                }
+                else
+                {
+                    column.Text = column.Text.TrimEnd(' ', '↑', '↓');
+                }
+            }
         }
     }
 }
