@@ -20,7 +20,7 @@ namespace MIDI_Splitter_Lite
         List<ushort> trackNumberList = new List<ushort>();
         List<string> trackNamesList = new List<string>();
 
-        private ListViewItemComparer lvwColumnSorter;
+        private readonly ListViewItemComparer lvwColumnSorter;
 
         private Size formOriginalSize;
         private Rectangle recLab1;
@@ -49,8 +49,11 @@ namespace MIDI_Splitter_Lite
         {
             if (Debugger.IsAttached)
             {
-                if (ConfirmationPopup("Do you want to reset your settings?", "Warning", true) == DialogResult.Yes)
-                    Settings.Default.Reset();
+                if (ConfirmationPopup("Do you want to reset your settings?", "Warning", true))
+                {
+                    if (ConfirmationPopup("Warning: Are you sure you want to reset your settings? This is not reversible.", "Warning", true, MessageBoxIcon.Warning))
+                        Settings.Default.Reset();
+                }
             }
 
             InitializeComponent();
@@ -279,7 +282,7 @@ namespace MIDI_Splitter_Lite
 
             exportItem.Click += ExportItem_Click;
             editItem.Click += EditItem_Click;
-            removeItem.Click += (sender, e) => { if (ConfirmationPopup($"Are you sure you want to delete the track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}?", $"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}") == DialogResult.Yes) { for (int i = MIDIListView.SelectedItems.Count - 1; i >= 0; i--) MIDIListView.Items.Remove(MIDIListView.SelectedItems[i]); } };
+            removeItem.Click += (sender, e) => { if (ConfirmationPopup($"Are you sure you want to delete the track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}?", $"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}")) { for (int i = MIDIListView.SelectedItems.Count - 1; i >= 0; i--) MIDIListView.Items.Remove(MIDIListView.SelectedItems[i]); } };
             reloadMidi.Click += (sender, e) => ReloadMidiButton_Click(sender, e);
             selectAllItems.Click += (sender, e) => SelectAllItems(true);
             deselectAllItems.Click += (sender, e) => SelectAllItems(false);
@@ -295,15 +298,14 @@ namespace MIDI_Splitter_Lite
             MIDIListView.ContextMenuStrip = listContextMenu;
         }
 
-        private DialogResult ConfirmationPopup(String message, String title, Boolean bypass = false)
+        private bool ConfirmationPopup(String message, String title, Boolean bypass = false, MessageBoxIcon icon = MessageBoxIcon.Question, MessageBoxButtons buttons = MessageBoxButtons.YesNo)
         {
             if (bypass || (MIDIListView != null && MIDIListView.SelectedItems.Count > 0))
             {
-                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                DialogResult result = MessageBox.Show(message, title, buttons);
-                return result;
+                DialogResult result = MessageBox.Show(message, title, buttons, icon);
+                return result == DialogResult.Yes;
             }
-            return DialogResult.No;
+            return false;
         }
 
         private void MIDIListView_MouseUp(object sender, MouseEventArgs e)
@@ -369,7 +371,7 @@ namespace MIDI_Splitter_Lite
                 {
                     if (!isEditingFinished)
                     {
-                        if (ConfirmationPopup($"Do you want to save the name{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}?", "Save") == DialogResult.Yes)
+                        if (ConfirmationPopup($"Do you want to save the name{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}?", "Save"))
                             FinishEditing(editBox);
                         else
                             editBox.Dispose();
@@ -800,33 +802,40 @@ namespace MIDI_Splitter_Lite
 
         private void MIDIListView_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.A && e.Control)
+            switch (e.KeyCode)
             {
-                SelectAllItems(true);
-            }
-            if (e.KeyCode == Keys.D && e.Control)
-            {
-                SelectAllItems(false);
-            }
-            if (e.KeyCode == Keys.S && e.Control)
-            {
-                ExportTracks();
-            }
-            if (e.KeyCode == Keys.R && e.Control)
-            {
-                if (ConfirmationPopup($"Are you sure you want to reload the midi?", $"Reload Midi") == DialogResult.Yes)
-                {
-                    RequestRestart();
-                };
-            }
-            if (e.KeyCode == Keys.Delete)
-            {
-                if (ConfirmationPopup($"Are you sure you want to delete the track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}?", $"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}") == DialogResult.Yes) 
-                { 
-                    for (int i = MIDIListView.SelectedItems.Count - 1; i >= 0; i--) {
-                        MIDIListView.Items.Remove(MIDIListView.SelectedItems[i]);
+                case Keys.A when e.Control:
+                    SelectAllItems(true);
+                    break;
+                case Keys.D when e.Control:
+                    SelectAllItems(false);
+                    break;
+                case Keys.S when e.Control:
+                    if (MIDIListView.SelectedItems.Count < 1)
+                    {
+                        MessageBox.Show(this, "Error: No tracks selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
                     }
-                };
+                    else if (ConfirmationPopup("Are you sure you want to export the midi?", "Export Midi"))
+                    {
+                        ExportTracks();
+                    }
+                    break;
+                case Keys.R when e.Control:
+                    if (ConfirmationPopup("Are you sure you want to reload the midi?", "Reload Midi"))
+                    {
+                        RequestRestart();
+                    }
+                    break;
+                case Keys.Delete:
+                    if (ConfirmationPopup($"Are you sure you want to delete the track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}?", $"Remove track{(MIDIListView.SelectedItems.Count == 1 ? "" : "s")}"))
+                    {
+                        for (int i = MIDIListView.SelectedItems.Count - 1; i >= 0; i--)
+                        {
+                            MIDIListView.Items.Remove(MIDIListView.SelectedItems[i]);
+                        }
+                    };
+                    break;
             }
         }
 
@@ -1192,7 +1201,7 @@ namespace MIDI_Splitter_Lite
             }
             else
             {
-                if (ConfirmationPopup("Are you sure you want to exit?", "Exit", true) == DialogResult.Yes)
+                if (ConfirmationPopup("Are you sure you want to exit?", "Exit", true))
                 {    
                     Application.Exit();
                 };
@@ -1383,7 +1392,7 @@ namespace MIDI_Splitter_Lite
 
         private void ReloadMidiButton_Click(object sender, EventArgs e)
         {
-            if (ConfirmationPopup("Are you sure you want to reload the MIDI file, this will revert any changes you have made", "Reload MIDI", true) == DialogResult.Yes)
+            if (ConfirmationPopup("Are you sure you want to reload the MIDI file, this will revert any changes you have made", "Reload MIDI", true))
             {
                 RequestRestart();
             }
